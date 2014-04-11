@@ -8,9 +8,5 @@
 		<relativePath>../acres-parent-service</relativePath>
 	</parent>
 	<artifactId>acres-service-common</artifactId>
-	<packaging>pom</packaging>
-	<modules>
-		<module>acres-service-common-intf</module>
-		<module>acres-service-common-impl</module>
-	</modules>
+	<packaging>jar</packaging>
 </project>

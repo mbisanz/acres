@@ -46,7 +46,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
-			<artifactId>acres-service-common-intf</artifactId>
+			<artifactId>acres-service-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
