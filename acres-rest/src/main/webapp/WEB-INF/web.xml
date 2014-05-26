@@ -1,13 +1,9 @@
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
-	<!--context-param>
-		<param-name>resteasy.role.based.security</param-name>
-		<param-value>true</param-value>
-	</context-param-->
 
 	<security-constraint>
-		<display-name>ACRES Private Rest API</display-name>
+		<display-name>ACRES Rest API</display-name>
 		<web-resource-collection>
 			<web-resource-name>ACRES Rest API</web-resource-name>
 			<url-pattern>/rest/*</url-pattern>
