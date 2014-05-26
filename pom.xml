@@ -13,6 +13,7 @@
 		<module>acres-service-user</module>
 		<module>acres-web</module>
 		<module>acres-ear</module>
+		<module>acres-rest</module>
 	</modules>
 	<build>
 		<plugins>

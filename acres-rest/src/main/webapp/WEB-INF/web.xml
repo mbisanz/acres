@@ -1,20 +1,21 @@
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
-	<context-param>
+	<!--context-param>
 		<param-name>resteasy.role.based.security</param-name>
 		<param-value>true</param-value>
-	</context-param>
+	</context-param-->
 
 	<security-constraint>
 		<display-name>ACRES Private Rest API</display-name>
 		<web-resource-collection>
 			<web-resource-name>ACRES Rest API</web-resource-name>
-			<url-pattern>/rest/private/*</url-pattern>
+			<url-pattern>/rest/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>acres_admin</role-name>
-			<role-name>acres_user</role-name>
+			<role-name>admin</role-name>
+			<role-name>user</role-name>
+			<role-name>guest</role-name>
 		</auth-constraint>
 	</security-constraint>
 
@@ -24,10 +25,13 @@
 	</login-config>
 
 	<security-role>
-		<role-name>acres_admin</role-name>
+		<role-name>admin</role-name>
 	</security-role>
 	<security-role>
-		<role-name>acres_user</role-name>
+		<role-name>user</role-name>
+	</security-role>
+	<security-role>
+		<role-name>guest</role-name>
 	</security-role>
 
 </web-app>

@@ -22,8 +22,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
-			<artifactId>acres-service-common</artifactId>
+			<artifactId>acres-service-common-impl</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
@@ -33,7 +34,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
-			<artifactId>acres-web</artifactId>
+			<artifactId>acres-rest</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>

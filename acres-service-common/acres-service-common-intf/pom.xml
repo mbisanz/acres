@@ -3,14 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.prodyna.pac.acres</groupId>
-		<artifactId>acres-parent-service</artifactId>
+		<artifactId>acres-parent-service-intf</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../acres-parent-service</relativePath>
+		<relativePath>../../acres-parent-service/acres-parent-service-intf</relativePath>
 	</parent>
-	<artifactId>acres-service-common</artifactId>
-	<packaging>pom</packaging>
-	<modules>
-		<module>acres-service-common-intf</module>
-		<module>acres-service-common-impl</module>
-	</modules>
+	<artifactId>acres-service-common-intf</artifactId>
+	<packaging>jar</packaging>
 </project>

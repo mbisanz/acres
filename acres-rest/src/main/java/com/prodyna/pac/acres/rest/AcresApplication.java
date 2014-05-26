@@ -1,4 +1,4 @@
-package com.prodyna.pac.acres.web;
+package com.prodyna.pac.acres.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

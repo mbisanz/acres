@@ -21,34 +21,4 @@
 		</plugins>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-7.0</artifactId>
-			<version>1.0.0.Final</version>
-			<type>pom</type>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.prodyna.pac.acres</groupId>
-			<artifactId>acres-service-user-intf</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.prodyna.pac.acres</groupId>
-			<artifactId>acres-service-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
 </project>

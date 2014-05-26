@@ -1,4 +1,4 @@
-package com.prodyna.pac.acres.common.cdi;
+package com.prodyna.pac.acres.common.persistence;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
