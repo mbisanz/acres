@@ -8,4 +8,16 @@
   </parent>
   <artifactId>acres-service-aircraft-impl</artifactId>
   <packaging>ejb</packaging>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.prodyna.pac.acres</groupId>
+  		<artifactId>acres-service-common-intf</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.prodyna.pac.acres</groupId>
+  		<artifactId>acres-service-aircraft-intf</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
