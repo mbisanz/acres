@@ -10,8 +10,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
-@Path("aircraftType")
+@Path("acType")
 @Produces("application/json")
 @Consumes("application/json")
 public interface AircraftTypeService {
@@ -32,4 +33,9 @@ public interface AircraftTypeService {
 	@DELETE
 	@Path("{id}")
 	void deleteAircraftType(@PathParam("id") long id);
+
+	@GET
+	@Path("search")
+	List<AircraftType> findAircraftTypes(@QueryParam("iataCode") String iataCode,
+			@QueryParam("icaoCode") String icaoCode);
 }

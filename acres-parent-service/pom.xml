@@ -16,9 +16,7 @@
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-7.0</artifactId>
-			<version>1.0.0.Final</version>
 			<type>pom</type>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

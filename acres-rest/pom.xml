@@ -25,9 +25,7 @@
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-7.0</artifactId>
-			<version>1.0.0.Final</version>
 			<type>pom</type>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -43,6 +41,12 @@
 		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
 			<artifactId>acres-service-user-intf</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.prodyna.pac.acres</groupId>
+			<artifactId>acres-service-aircraft-intf</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>

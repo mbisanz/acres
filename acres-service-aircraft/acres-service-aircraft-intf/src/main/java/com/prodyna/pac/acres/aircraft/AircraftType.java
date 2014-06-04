@@ -7,10 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "acres_aircraft_aircrafttype")
+@Table(name = "acres_aircraft_aircrafttype", uniqueConstraints = { @UniqueConstraint(columnNames = "icaoCode"),
+		@UniqueConstraint(columnNames = "iataCode") })
 @XmlRootElement(name = "aircraftType")
 public class AircraftType implements Serializable {
 
