@@ -15,7 +15,7 @@
 		<module>acres-ear</module>
 		<module>acres-rest</module>
 		<module>acres-service-aircraft</module>
-		<module>acres-test</module>
+		<!--module>acres-test</module-->
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
