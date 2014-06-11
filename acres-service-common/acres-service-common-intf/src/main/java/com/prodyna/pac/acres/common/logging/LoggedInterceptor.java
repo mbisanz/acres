@@ -33,8 +33,8 @@ public class LoggedInterceptor {
 		if (log.isTraceEnabled()) {
 			long time = System.currentTimeMillis() - start;
 			Method method = invocationContext.getMethod();
-			log.trace("{}:{}({}) [{}ms]", method.getDeclaringClass().getName(), method.getName(),
-					getParameters(invocationContext), time);
+			log.trace("{}:{}({}) [{}ms]: {}", method.getDeclaringClass().getName(), method.getName(),
+					getParameters(invocationContext), time, proceed);
 		}
 		return proceed;
 	}

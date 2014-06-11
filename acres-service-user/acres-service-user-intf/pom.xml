@@ -7,4 +7,11 @@
     <relativePath>../../acres-parent-service/acres-parent-service-intf</relativePath>
   </parent>
   <artifactId>acres-service-user-intf</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.prodyna.pac.acres</groupId>
+  		<artifactId>acres-service-common-intf</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

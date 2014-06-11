@@ -1,18 +1,28 @@
 package com.prodyna.pac.acres.user;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.prodyna.pac.acres.user.password.PasswordEncryptionListener;
 
 @Entity
 @Table(name = "acres_user", uniqueConstraints = @UniqueConstraint(columnNames = { "login" }))
 @XmlRootElement(name = "user")
+@EntityListeners(PasswordEncryptionListener.class)
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,8 +34,13 @@ public class User implements Serializable {
 	private String name;
 	private String login;
 	private String email;
+	@Transient
 	private String password;
 	private String passwordHash;
+	@ElementCollection
+	@CollectionTable(name = "acres_user_roles", joinColumns = @JoinColumn(name = "user_id"))
+	@XmlElementWrapper(name = "roles")
+	private Set<String> roles;
 
 	public Long getId() {
 		return id;
@@ -83,10 +98,9 @@ public class User implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((password == null) ? 0 : password.hashCode());
-		result = prime * result
-				+ ((passwordHash == null) ? 0 : passwordHash.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((passwordHash == null) ? 0 : passwordHash.hashCode());
+		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
 		return result;
 	}
 
@@ -129,13 +143,17 @@ public class User implements Serializable {
 				return false;
 		} else if (!passwordHash.equals(other.passwordHash))
 			return false;
+		if (roles == null) {
+			if (other.roles != null)
+				return false;
+		} else if (!roles.equals(other.roles))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", login=" + login
-				+ ", email=" + email + ", password=" + password
-				+ ", passwordHash=" + passwordHash + "]";
+		return "User [id=" + id + ", name=" + name + ", login=" + login + ", email=" + email + ", passwordHash="
+				+ passwordHash + ", roles=" + roles + "]";
 	}
 }

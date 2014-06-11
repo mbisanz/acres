@@ -1,0 +1,30 @@
+[
+	{
+		"login":"guest",
+		"password":"guest",
+		"roles":[
+			"guest"
+		]
+	}
+	,
+	{
+		"login":"user",
+		"name":"Udo User",
+		"password":"user",
+		"email":"user@acres.pac",
+		"roles":[
+			"user"
+		]
+	}
+	,
+	{
+		"login":"admin",
+		"name":"Adam Admin",
+		"password":"admin",
+		"email":"admin@acres.pac",
+		"roles":[
+			"user",
+			"admin"
+		]
+	}
+]
