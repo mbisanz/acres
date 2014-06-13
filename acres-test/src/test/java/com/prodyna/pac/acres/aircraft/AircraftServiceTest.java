@@ -12,14 +12,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.pac.acres.AbstractAcresTest;
+import com.prodyna.pac.acres.common.security.Unsecured;
 
 @RunWith(Arquillian.class)
 public class AircraftServiceTest extends AbstractAcresTest {
 
 	@Inject
+	@Unsecured
 	private AircraftTypeService aircraftTypeService;
 
 	@Inject
+	@Unsecured
 	private AircraftService aircraftService;
 
 	@Test

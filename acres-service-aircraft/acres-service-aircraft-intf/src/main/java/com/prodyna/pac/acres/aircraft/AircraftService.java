@@ -2,39 +2,17 @@ package com.prodyna.pac.acres.aircraft;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
-@Path("ac")
-@Produces("application/json")
-@Consumes("application/json")
 public interface AircraftService {
 
-	@GET
 	List<Aircraft> readAllAircrafts();
 
-	@GET
-	@Path("{id}")
-	Aircraft readAircraft(@PathParam("id") long id);
+	Aircraft readAircraft(long id);
 
-	@POST
 	Aircraft createAircraft(Aircraft aircraft);
 
-	@PUT
 	Aircraft updateAircraft(Aircraft aircraft);
 
-	@DELETE
-	@Path("{id}")
-	void deleteAircraft(@PathParam("id") long id);
+	void deleteAircraft(long id);
 
-	@GET
-	@Path("search")
-	List<Aircraft> findAircrafts(@QueryParam("registration") String registration);
+	List<Aircraft> findAircrafts(String registration);
 }

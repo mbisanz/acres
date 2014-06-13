@@ -3,8 +3,6 @@ package com.prodyna.pac.acres.aircraft;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -16,9 +14,13 @@ import javax.persistence.criteria.Root;
 import org.slf4j.Logger;
 
 import com.prodyna.pac.acres.common.logging.Logged;
+import com.prodyna.pac.acres.common.monitoring.Monitored;
+import com.prodyna.pac.acres.common.security.Unsecured;
 
+@Unsecured
 @Stateless
 @Logged
+@Monitored
 public class AircraftServiceBean implements AircraftService {
 
 	@Inject
@@ -27,38 +29,32 @@ public class AircraftServiceBean implements AircraftService {
 	@Inject
 	private EntityManager em;
 
-	@PermitAll
 	@Override
 	public Aircraft readAircraft(long id) {
 		return em.find(Aircraft.class, id);
 	}
 
-	@PermitAll
 	@Override
 	public List<Aircraft> readAllAircrafts() {
 		return em.createQuery("select ac from Aircraft ac", Aircraft.class).getResultList();
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public Aircraft createAircraft(Aircraft aircraft) {
 		em.persist(aircraft);
 		return aircraft;
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public Aircraft updateAircraft(Aircraft aircraft) {
 		return em.merge(aircraft);
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public void deleteAircraft(long id) {
 		em.remove(em.find(Aircraft.class, id));
 	}
 
-	@PermitAll
 	@Override
 	public List<Aircraft> findAircrafts(String registration) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();

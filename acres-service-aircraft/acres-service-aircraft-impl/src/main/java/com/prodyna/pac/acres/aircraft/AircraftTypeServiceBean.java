@@ -3,8 +3,6 @@ package com.prodyna.pac.acres.aircraft;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -16,9 +14,13 @@ import javax.persistence.criteria.Root;
 import org.slf4j.Logger;
 
 import com.prodyna.pac.acres.common.logging.Logged;
+import com.prodyna.pac.acres.common.monitoring.Monitored;
+import com.prodyna.pac.acres.common.security.Unsecured;
 
+@Unsecured
 @Stateless
 @Logged
+@Monitored
 public class AircraftTypeServiceBean implements AircraftTypeService {
 
 	@Inject
@@ -27,55 +29,46 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 	@Inject
 	private EntityManager em;
 
-	@PermitAll
 	@Override
 	public AircraftType readAircraftType(long id) {
 		return em.find(AircraftType.class, id);
 	}
 
-	@PermitAll
 	@Override
 	public List<AircraftType> readAllAircraftTypes() {
 		return em.createQuery("select act from AircraftType act", AircraftType.class).getResultList();
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public AircraftType createAircraftType(AircraftType aircraftType) {
 		em.persist(aircraftType);
 		return aircraftType;
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public AircraftType updateAircraftType(AircraftType aircraftType) {
 		return em.merge(aircraftType);
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public void deleteAircraftType(long id) {
 		em.remove(em.find(AircraftType.class, id));
 	}
 
-	@PermitAll
 	@Override
 	public List<AircraftType> findAircraftTypes(String iataCode, String icaoCode) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<AircraftType> criteria = cb.createQuery(AircraftType.class);
-		Root<AircraftType> room = criteria.from(AircraftType.class);
-		CriteriaQuery<AircraftType> query = criteria.select(room);
-
+		CriteriaQuery<AircraftType> cq = cb.createQuery(AircraftType.class);
+		Root<AircraftType> aircraftType = cq.from(AircraftType.class);
 		List<Predicate> predicates = new ArrayList<>();
 		if (iataCode != null) {
-			predicates.add(cb.equal(room.get("iataCode"), iataCode));
+			predicates.add(cb.equal(aircraftType.get("iataCode"), iataCode));
 		}
 		if (icaoCode != null) {
-			predicates.add(cb.equal(room.get("icaoCode"), icaoCode));
+			predicates.add(cb.equal(aircraftType.get("icaoCode"), icaoCode));
 		}
-		query = query.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-
-		List<AircraftType> result = em.createQuery(criteria).getResultList();
+		cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
+		List<AircraftType> result = em.createQuery(cq).getResultList();
 		return result;
 	}
 }
