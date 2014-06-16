@@ -11,11 +11,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.common.security.Unsecured;
 
 @RunWith(Arquillian.class)
-public class AircraftServiceTest extends AbstractAcresTest {
+public class AircraftServiceTest {
 
 	@Inject
 	@Unsecured
@@ -28,8 +27,6 @@ public class AircraftServiceTest extends AbstractAcresTest {
 	@Test
 	@InSequence(101)
 	public void testCreateAircraftType() throws Exception {
-		login("admin", "admin");
-
 		List<AircraftType> before = aircraftTypeService.readAllAircraftTypes();
 		Assert.assertTrue(before.isEmpty());
 
@@ -59,8 +56,6 @@ public class AircraftServiceTest extends AbstractAcresTest {
 	@Test
 	@InSequence(102)
 	public void testUpdateAircraftType() throws Exception {
-		login("admin", "admin");
-
 		AircraftType type = aircraftTypeService.readAircraftType(1);
 		Assert.assertNotNull(type);
 		Assert.assertEquals("F50", type.getIataCode());
@@ -91,8 +86,6 @@ public class AircraftServiceTest extends AbstractAcresTest {
 	@Test
 	@InSequence(201)
 	public void testCreateAircraft() throws Exception {
-		login("admin", "admin");
-
 		List<Aircraft> before = aircraftService.readAllAircrafts();
 		Assert.assertTrue(before.isEmpty());
 
@@ -111,8 +104,6 @@ public class AircraftServiceTest extends AbstractAcresTest {
 	@Test
 	@InSequence(202)
 	public void testUpdateAircraft() throws Exception {
-		login("admin", "admin");
-
 		Aircraft ac = aircraftService.findAircrafts("VH-FNA").get(0);
 
 		AircraftType type = aircraftTypeService.findAircraftTypes("F50", null).get(0);
@@ -127,8 +118,6 @@ public class AircraftServiceTest extends AbstractAcresTest {
 	@Test
 	@InSequence(801)
 	public void testDeleteAircraft() throws Exception {
-		login("admin", "admin");
-
 		List<Aircraft> before = aircraftService.readAllAircrafts();
 		Assert.assertEquals(1, before.size());
 
@@ -141,8 +130,6 @@ public class AircraftServiceTest extends AbstractAcresTest {
 	@Test
 	@InSequence(901)
 	public void testDeleteAircraftType() throws Exception {
-		login("admin", "admin");
-
 		List<AircraftType> before = aircraftTypeService.readAllAircraftTypes();
 		Assert.assertEquals(3, before.size());
 

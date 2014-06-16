@@ -127,6 +127,23 @@
 			<artifactId>wildfly-arquillian-container-embedded</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.eu.ingwar.tools</groupId>
+			<artifactId>arquillian-suite-extension</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- services: -->
+		<dependency>
+			<groupId>com.prodyna.pac.acres</groupId>
+			<artifactId>acres-service-common-impl</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
 			<artifactId>acres-service-aircraft-impl</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -135,12 +152,6 @@
 		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
 			<artifactId>acres-service-user-impl</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>com.prodyna.pac.acres</groupId>
-			<artifactId>acres-service-common-impl</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>

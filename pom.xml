@@ -20,10 +20,12 @@
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.jboss.arquillian>1.1.3.Final</version.jboss.arquillian>
+		<version.arquillian>1.1.2.Final-wildfly-1</version.arquillian>
+		<version.arquillian.suite.extension>1.1.1</version.arquillian.suite.extension>
 		<version.jboss.javaee7>1.0.0.Final</version.jboss.javaee7>
 		<version.jboss.wildfly>8.0.0.Final</version.jboss.wildfly>
 		<version.junit>4.11</version.junit>
+		<version.resteasy>3.0.6.Final</version.resteasy>
 		<version.slf4j>1.7.5</version.slf4j>
 	</properties>
 	<build>
@@ -56,9 +58,14 @@
 			<dependency>
 				<groupId>org.jboss.arquillian</groupId>
 				<artifactId>arquillian-bom</artifactId>
-				<version>${version.jboss.arquillian}</version>
+				<version>${version.arquillian}</version>
 				<scope>import</scope>
 				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.eu.ingwar.tools</groupId>
+				<artifactId>arquillian-suite-extension</artifactId>
+				<version>${version.arquillian.suite.extension}</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
@@ -69,6 +76,11 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${version.slf4j}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-client</artifactId>
+				<version>${version.resteasy}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
