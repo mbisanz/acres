@@ -25,8 +25,8 @@
                             <module-option name="hashAlgorithm" value="SHA-256"/>
                             <module-option name="hashEncoding" value="hex"/>
                             <module-option name="unauthenticatedIdentity" value="guest"/>
-                            <module-option name="rolesQuery" value="select r.roles as 'Role', 'Roles' as 'RoleGroup' from acres_user u left join acres_user_roles r on (u.id = r.user_id) where upper(u.login)=upper(?)"/>
-                            <module-option name="principalsQuery" value="select passwordHash as 'Password' from acres_user where login=?"/>
+                            <module-option name="rolesQuery" value="select r.roles as 'Role', 'Roles' as 'RoleGroup' from acres_user_user u left join acres_user_user_roles r on (u.id = r.user_id) where upper(u.login)=upper(?)"/>
+                            <module-option name="principalsQuery" value="select passwordHash as 'Password' from acres_user_user where login=?"/>
                             <module-option name="ignorePasswordCase" value="true"/>
                         </login-module>
                     </authentication>

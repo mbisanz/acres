@@ -51,6 +51,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.prodyna.pac.acres</groupId>
+			<artifactId>acres-service-license-intf</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
