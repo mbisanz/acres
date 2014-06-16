@@ -1,4 +1,4 @@
-package com.prodyna.pac.acres.rest.aircraft;
+package com.prodyna.pac.acres.aircraft;
 
 import java.util.List;
 

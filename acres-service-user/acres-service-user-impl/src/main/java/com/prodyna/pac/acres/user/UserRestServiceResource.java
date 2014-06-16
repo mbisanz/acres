@@ -1,4 +1,4 @@
-package com.prodyna.pac.acres.rest.user;
+package com.prodyna.pac.acres.user;
 
 import java.util.List;
 
