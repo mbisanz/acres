@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.validation.ValidationException;
 
 import org.slf4j.Logger;
 
@@ -39,6 +40,9 @@ public class UserServiceBean implements UserService {
 
 	@Override
 	public User createUser(User user) {
+		if (user.getPassword() == null || user.getPassword().length() == 0) {
+			throw new ValidationException("Password is required");
+		}
 		em.persist(user);
 		return user;
 	}

@@ -11,13 +11,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
 
 @Path("user")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface UserRestService extends UserService {
 
 	@GET
@@ -25,7 +26,7 @@ public interface UserRestService extends UserService {
 	List<User> readAllUsers();
 
 	@GET
-	@Path("{id}")
+	@Path("{id:[0-9][0-9]*}")
 	@Override
 	User readUser(@PathParam("id") long id);
 

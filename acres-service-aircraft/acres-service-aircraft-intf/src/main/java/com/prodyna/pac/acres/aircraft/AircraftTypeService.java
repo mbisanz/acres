@@ -14,5 +14,5 @@ public interface AircraftTypeService {
 
 	void deleteAircraftType(long id);
 
-	List<AircraftType> findAircraftTypes(String iataCode, String icaoCode);
+	AircraftType findAircraftType(String iataCode);
 }

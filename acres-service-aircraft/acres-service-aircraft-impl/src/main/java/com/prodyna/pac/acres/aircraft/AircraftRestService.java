@@ -11,13 +11,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import com.prodyna.pac.acres.aircraft.Aircraft;
 import com.prodyna.pac.acres.aircraft.AircraftService;
 
 @Path("ac")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface AircraftRestService extends AircraftService {
 
 	@GET
@@ -25,7 +26,7 @@ public interface AircraftRestService extends AircraftService {
 	List<Aircraft> readAllAircrafts();
 
 	@GET
-	@Path("{id}")
+	@Path("{id:[0-9][0-9]*}")
 	@Override
 	Aircraft readAircraft(@PathParam("id") long id);
 

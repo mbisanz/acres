@@ -46,4 +46,10 @@ public class LicenseRestServiceResource implements LicenseRestService {
 	public void deleteLicense(long id) {
 		service.deleteLicense(id);
 	}
+
+	@RolesAllowed("admin")
+	@Override
+	public List<License> findLicenses(String login, String aircraftType) {
+		return service.findLicenses(login, aircraftType);
+	}
 }

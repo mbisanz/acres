@@ -8,10 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "acres_aircraft_aircrafttype", uniqueConstraints = { @UniqueConstraint(columnNames = "icaoCode"),
+@Table(name = "acres_aircraft_aircrafttype", uniqueConstraints = { @UniqueConstraint(columnNames = "iataCode"),
 		@UniqueConstraint(columnNames = "iataCode") })
 @XmlRootElement(name = "aircraftType")
 public class AircraftType implements Serializable {
@@ -23,7 +24,8 @@ public class AircraftType implements Serializable {
 	private Long id;
 
 	private String name;
-	private String icaoCode;
+
+	@NotNull
 	private String iataCode;
 
 	public Long getId() {
@@ -42,14 +44,6 @@ public class AircraftType implements Serializable {
 		this.name = name;
 	}
 
-	public String getIcaoCode() {
-		return icaoCode;
-	}
-
-	public void setIcaoCode(String icaoCode) {
-		this.icaoCode = icaoCode;
-	}
-
 	public String getIataCode() {
 		return iataCode;
 	}
@@ -63,7 +57,6 @@ public class AircraftType implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((iataCode == null) ? 0 : iataCode.hashCode());
-		result = prime * result + ((icaoCode == null) ? 0 : icaoCode.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -83,11 +76,6 @@ public class AircraftType implements Serializable {
 				return false;
 		} else if (!iataCode.equals(other.iataCode))
 			return false;
-		if (icaoCode == null) {
-			if (other.icaoCode != null)
-				return false;
-		} else if (!icaoCode.equals(other.icaoCode))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -103,6 +91,6 @@ public class AircraftType implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AircraftType [id=" + id + ", name=" + name + ", icaoCode=" + icaoCode + ", iataCode=" + iataCode + "]";
+		return "AircraftType [id=" + id + ", name=" + name + ", iataCode=" + iataCode + "]";
 	}
 }

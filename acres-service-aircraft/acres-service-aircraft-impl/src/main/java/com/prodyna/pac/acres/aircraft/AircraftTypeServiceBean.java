@@ -1,6 +1,5 @@
 package com.prodyna.pac.acres.aircraft;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,7 +7,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
@@ -56,19 +54,12 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 	}
 
 	@Override
-	public List<AircraftType> findAircraftTypes(String iataCode, String icaoCode) {
+	public AircraftType findAircraftType(String iataCode) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AircraftType> cq = cb.createQuery(AircraftType.class);
 		Root<AircraftType> aircraftType = cq.from(AircraftType.class);
-		List<Predicate> predicates = new ArrayList<>();
-		if (iataCode != null) {
-			predicates.add(cb.equal(aircraftType.get("iataCode"), iataCode));
-		}
-		if (icaoCode != null) {
-			predicates.add(cb.equal(aircraftType.get("icaoCode"), icaoCode));
-		}
-		cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-		List<AircraftType> result = em.createQuery(cq).getResultList();
+		cq.where(cb.equal(aircraftType.get("iataCode"), iataCode));
+		AircraftType result = em.createQuery(cq).getSingleResult();
 		return result;
 	}
 }

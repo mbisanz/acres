@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.prodyna.pac.acres.aircraft.AircraftType;
@@ -26,9 +27,11 @@ public class License implements Serializable {
 	private Long id;
 
 	@ManyToOne
+	@NotNull
 	private User user;
 
 	@ManyToOne
+	@NotNull
 	private AircraftType aircraftType;
 
 	private Date validFrom;

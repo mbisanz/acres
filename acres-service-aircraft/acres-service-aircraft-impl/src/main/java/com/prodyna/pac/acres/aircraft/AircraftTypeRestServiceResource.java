@@ -7,8 +7,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import com.prodyna.pac.acres.aircraft.AircraftType;
-import com.prodyna.pac.acres.aircraft.AircraftTypeService;
 import com.prodyna.pac.acres.common.logging.Logged;
 import com.prodyna.pac.acres.common.security.Unsecured;
 
@@ -52,7 +50,7 @@ public class AircraftTypeRestServiceResource implements AircraftTypeRestService 
 
 	@PermitAll
 	@Override
-	public List<AircraftType> findAircraftTypes(String iataCode, String icaoCode) {
-		return service.findAircraftTypes(iataCode, icaoCode);
+	public AircraftType findAircraftType(String iataCode) {
+		return service.findAircraftType(iataCode);
 	}
 }

@@ -33,53 +33,11 @@ public class AircraftServiceTest {
 	}
 
 	@Test
-	public void testCreateAircraftType() throws Exception {
-		List<AircraftType> before = aircraftTypeService.readAllAircraftTypes();
-		Assert.assertEquals(3, before.size());
-
-		AircraftType type3 = new AircraftType();
-		type3.setName("Boeing 747-400");
-		type3.setIataCode("744");
-		type3.setIcaoCode("B744");
-		aircraftTypeService.createAircraftType(type3);
-		Assert.assertNotNull(type3.getId());
-
-		List<AircraftType> result = aircraftTypeService.readAllAircraftTypes();
-		Assert.assertEquals(4, result.size());
-	}
-
-	@Test
-	public void testUpdateAircraftType() throws Exception {
-		AircraftType type = aircraftTypeService.findAircraftTypes("F50", null).get(0);
-		Assert.assertNotNull(type);
-		Assert.assertEquals("F50", type.getIataCode());
-		Assert.assertEquals("F50", type.getIcaoCode());
-		type.setIcaoCode("F51");
-
-		AircraftType result = aircraftTypeService.updateAircraftType(type);
-		Assert.assertNotSame(type, result);
-		Assert.assertEquals("F51", result.getIcaoCode());
-	}
-
-	@Test
-	public void testDeleteAircraftType() throws Exception {
-		List<AircraftType> before = aircraftTypeService.readAllAircraftTypes();
-		Assert.assertEquals(3, before.size());
-
-		AircraftType type = aircraftTypeService.findAircraftTypes("CNA", null).get(0);
-		Assert.assertNotNull(type);
-		aircraftTypeService.deleteAircraftType(type.getId());
-
-		List<AircraftType> result = aircraftTypeService.readAllAircraftTypes();
-		Assert.assertEquals(2, result.size());
-	}
-
-	@Test
 	public void testCreateAircraft() throws Exception {
 		List<Aircraft> before = aircraftService.readAllAircrafts();
 		Assert.assertEquals(3, before.size());
 
-		AircraftType type = aircraftTypeService.findAircraftTypes("CNA", null).get(0);
+		AircraftType type = aircraftTypeService.findAircraftType("CNA");
 
 		Aircraft ac = new Aircraft();
 		ac.setRegistration("D-ABEA");
@@ -94,8 +52,9 @@ public class AircraftServiceTest {
 	@Test
 	public void testUpdateAircraft() throws Exception {
 		Aircraft ac = aircraftService.findAircrafts("VH-FNA").get(0);
+		Assert.assertNotNull(ac);
 
-		AircraftType type = aircraftTypeService.findAircraftTypes("F50", null).get(0);
+		AircraftType type = aircraftTypeService.findAircraftType("F50");
 		ac.setType(type);
 		Aircraft result = aircraftService.updateAircraft(ac);
 
@@ -112,20 +71,5 @@ public class AircraftServiceTest {
 
 		List<Aircraft> result = aircraftService.readAllAircrafts();
 		Assert.assertEquals(2, result.size());
-	}
-
-	@Test
-	public void testFindAircraftType() throws Exception {
-		List<AircraftType> before = aircraftTypeService.readAllAircraftTypes();
-		Assert.assertEquals(3, before.size());
-
-		List<AircraftType> result1 = aircraftTypeService.findAircraftTypes(null, null);
-		Assert.assertEquals(3, result1.size());
-
-		List<AircraftType> result2 = aircraftTypeService.findAircraftTypes(null, "F50");
-		Assert.assertEquals(1, result2.size());
-
-		List<AircraftType> result3 = aircraftTypeService.findAircraftTypes("notexist", "F50");
-		Assert.assertEquals(0, result3.size());
 	}
 }

@@ -10,10 +10,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 @Path("license")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface LicenseRestService extends LicenseService {
 
 	@GET
@@ -21,7 +23,7 @@ public interface LicenseRestService extends LicenseService {
 	List<License> readAllLicenses();
 
 	@GET
-	@Path("{id}")
+	@Path("{id:[0-9][0-9]*}")
 	@Override
 	License readLicense(@PathParam("id") long id);
 
@@ -37,4 +39,9 @@ public interface LicenseRestService extends LicenseService {
 	@Path("{id}")
 	@Override
 	void deleteLicense(@PathParam("id") long id);
+
+	@GET
+	@Path("search")
+	@Override
+	List<License> findLicenses(@QueryParam("login") String login, @QueryParam("acType") String aircraftType);
 }

@@ -13,4 +13,6 @@ public interface LicenseService {
 	License updateLicense(License license);
 
 	void deleteLicense(long id);
+
+	List<License> findLicenses(String login, String aircraftType);
 }

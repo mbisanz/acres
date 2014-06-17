@@ -64,7 +64,6 @@ public class TestScenarioBean {
 		AircraftType type1 = new AircraftType();
 		type1.setName("Fokker 50");
 		type1.setIataCode("F50");
-		type1.setIcaoCode("F50");
 		aircraftTypeService.createAircraftType(type1);
 		Assert.assertNotNull(type1.getId());
 
@@ -77,7 +76,6 @@ public class TestScenarioBean {
 		AircraftType type3 = new AircraftType();
 		type3.setName("Boeing 747-300");
 		type3.setIataCode("743");
-		type3.setIcaoCode("B743");
 		aircraftTypeService.createAircraftType(type3);
 		Assert.assertNotNull(type3.getId());
 
@@ -87,7 +85,7 @@ public class TestScenarioBean {
 	protected void setupAircrafts() throws Exception {
 		Assert.assertTrue(aircraftService.readAllAircrafts().isEmpty());
 
-		AircraftType f50 = aircraftTypeService.findAircraftTypes("F50", null).get(0);
+		AircraftType f50 = aircraftTypeService.findAircraftType("F50");
 		Assert.assertNotNull(f50);
 
 		Aircraft ac1 = new Aircraft();
@@ -96,7 +94,7 @@ public class TestScenarioBean {
 		aircraftService.createAircraft(ac1);
 		Assert.assertNotNull(ac1.getId());
 
-		AircraftType b747 = aircraftTypeService.findAircraftTypes("743", null).get(0);
+		AircraftType b747 = aircraftTypeService.findAircraftType("743");
 		Assert.assertNotNull(b747);
 
 		Aircraft ac2a = new Aircraft();
@@ -156,9 +154,9 @@ public class TestScenarioBean {
 		User pilot2 = userService.findUser("pilot2");
 		Assert.assertNotNull(pilot2);
 
-		AircraftType f50 = aircraftTypeService.findAircraftTypes("F50", null).get(0);
+		AircraftType f50 = aircraftTypeService.findAircraftType("F50");
 		Assert.assertNotNull(f50);
-		AircraftType b747 = aircraftTypeService.findAircraftTypes("743", null).get(0);
+		AircraftType b747 = aircraftTypeService.findAircraftType("743");
 		Assert.assertNotNull(b747);
 
 		License p1l1 = new License();

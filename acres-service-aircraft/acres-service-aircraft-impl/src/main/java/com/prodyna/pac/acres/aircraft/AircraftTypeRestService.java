@@ -11,13 +11,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-
-import com.prodyna.pac.acres.aircraft.AircraftType;
-import com.prodyna.pac.acres.aircraft.AircraftTypeService;
+import javax.ws.rs.core.MediaType;
 
 @Path("acType")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface AircraftTypeRestService extends AircraftTypeService {
 
 	@GET
@@ -25,7 +23,7 @@ public interface AircraftTypeRestService extends AircraftTypeService {
 	List<AircraftType> readAllAircraftTypes();
 
 	@GET
-	@Path("{id}")
+	@Path("{id:[0-9][0-9]*}")
 	@Override
 	AircraftType readAircraftType(@PathParam("id") long id);
 
@@ -45,6 +43,5 @@ public interface AircraftTypeRestService extends AircraftTypeService {
 	@GET
 	@Path("search")
 	@Override
-	List<AircraftType> findAircraftTypes(@QueryParam("iataCode") String iataCode,
-			@QueryParam("icaoCode") String icaoCode);
+	AircraftType findAircraftType(@QueryParam("iataCode") String iataCode);
 }
