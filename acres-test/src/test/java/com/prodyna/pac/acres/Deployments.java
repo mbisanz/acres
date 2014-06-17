@@ -16,6 +16,7 @@ public class Deployments {
 	public static WebArchive createDeployment() {
 		WebArchive wa = ShrinkWrap.create(WebArchive.class, "acres-test.war");
 		wa.addPackages(true, "com.prodyna.pac.acres");
+		wa.addClass(TestScenarioBean.class);
 		wa.addAsResource("META-INF/persistence.xml");
 		wa.addAsWebInfResource(new File("src/test/webapp/WEB-INF/beans.xml"), "beans.xml");
 		System.out.println(wa.toString(true));
