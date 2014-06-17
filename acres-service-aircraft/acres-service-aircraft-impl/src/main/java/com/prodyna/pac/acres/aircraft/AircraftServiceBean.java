@@ -1,6 +1,5 @@
 package com.prodyna.pac.acres.aircraft;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,7 +7,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
@@ -56,19 +54,15 @@ public class AircraftServiceBean implements AircraftService {
 	}
 
 	@Override
-	public List<Aircraft> findAircrafts(String registration) {
+	public Aircraft findAircraft(String registration) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Aircraft> criteria = cb.createQuery(Aircraft.class);
 		Root<Aircraft> room = criteria.from(Aircraft.class);
 		CriteriaQuery<Aircraft> query = criteria.select(room);
-
-		List<Predicate> predicates = new ArrayList<>();
 		if (registration != null) {
-			predicates.add(cb.equal(room.get("registration"), registration));
+			query.where(cb.equal(room.get("registration"), registration));
 		}
-		query = query.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-
-		List<Aircraft> result = em.createQuery(criteria).getResultList();
+		Aircraft result = em.createQuery(criteria).getSingleResult();
 		return result;
 	}
 }

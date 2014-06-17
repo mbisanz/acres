@@ -1,21 +1,26 @@
 package com.prodyna.pac.acres.user;
 
+import java.security.Principal;
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.SecurityContext;
 
 import com.prodyna.pac.acres.common.security.Unsecured;
-import com.prodyna.pac.acres.user.User;
-import com.prodyna.pac.acres.user.UserService;
 
 @RequestScoped
 public class UserRestServiceResource implements UserRestService {
-	
+
 	@Inject
 	@Unsecured
 	private UserService service;
+
+	@Context
+	SecurityContext securityContext;
 
 	@RolesAllowed("admin")
 	@Override
@@ -51,5 +56,16 @@ public class UserRestServiceResource implements UserRestService {
 	@Override
 	public User findUser(String login) {
 		return service.findUser(login);
+	}
+
+	@PermitAll
+	@Override
+	public User getCurrentUser() {
+		Principal userPrincipal = securityContext.getUserPrincipal();
+		if (userPrincipal == null) {
+			return null;
+		}
+		User user = service.findUser(userPrincipal.getName());
+		return user;
 	}
 }

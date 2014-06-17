@@ -13,9 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.prodyna.pac.acres.user.User;
-import com.prodyna.pac.acres.user.UserService;
-
 @Path("user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -46,4 +43,8 @@ public interface UserRestService extends UserService {
 	@Path("search")
 	@Override
 	User findUser(@QueryParam("login") String login);
+
+	@GET
+	@Path("my")
+	User getCurrentUser();
 }

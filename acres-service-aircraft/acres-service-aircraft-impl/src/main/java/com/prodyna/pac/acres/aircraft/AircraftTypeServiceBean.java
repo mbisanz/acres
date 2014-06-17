@@ -58,7 +58,9 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AircraftType> cq = cb.createQuery(AircraftType.class);
 		Root<AircraftType> aircraftType = cq.from(AircraftType.class);
-		cq.where(cb.equal(aircraftType.get("iataCode"), iataCode));
+		if (iataCode != null) {
+			cq.where(cb.equal(aircraftType.get("iataCode"), iataCode));
+		}
 		AircraftType result = em.createQuery(cq).getSingleResult();
 		return result;
 	}

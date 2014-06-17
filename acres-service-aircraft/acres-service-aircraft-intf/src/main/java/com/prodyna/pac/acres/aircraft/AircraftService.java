@@ -14,5 +14,5 @@ public interface AircraftService {
 
 	void deleteAircraft(long id);
 
-	List<Aircraft> findAircrafts(String registration);
+	Aircraft findAircraft(String registration);
 }

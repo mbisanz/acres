@@ -33,6 +33,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
 			<artifactId>acres-service-common-intf</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -57,9 +62,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>com.prodyna.pac.acres</groupId>
+			<artifactId>acres-service-reservation-intf</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -51,7 +51,7 @@ public class AircraftServiceTest {
 
 	@Test
 	public void testUpdateAircraft() throws Exception {
-		Aircraft ac = aircraftService.findAircrafts("VH-FNA").get(0);
+		Aircraft ac = aircraftService.findAircraft("VH-FNA");
 		Assert.assertNotNull(ac);
 
 		AircraftType type = aircraftTypeService.findAircraftType("F50");
@@ -67,7 +67,7 @@ public class AircraftServiceTest {
 		List<Aircraft> before = aircraftService.readAllAircrafts();
 		Assert.assertEquals(3, before.size());
 
-		aircraftService.deleteAircraft(before.get(0).getId());
+		aircraftService.deleteAircraft(aircraftService.findAircraft("9M-MPS").getId());
 
 		List<Aircraft> result = aircraftService.readAllAircrafts();
 		Assert.assertEquals(2, result.size());

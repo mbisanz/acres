@@ -18,6 +18,9 @@ import com.prodyna.pac.acres.aircraft.AircraftTypeService;
 import com.prodyna.pac.acres.common.security.Unsecured;
 import com.prodyna.pac.acres.license.License;
 import com.prodyna.pac.acres.license.LicenseService;
+import com.prodyna.pac.acres.reservation.Reservation;
+import com.prodyna.pac.acres.reservation.ReservationService;
+import com.prodyna.pac.acres.reservation.ReservationState;
 import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
 
@@ -43,15 +46,21 @@ public class TestScenarioBean {
 	@Unsecured
 	protected LicenseService licenseService;
 
+	@Inject
+	@Unsecured
+	protected ReservationService reservationService;
+
 	public void setup() throws Exception {
 		resetDatabase();
 		setupUsers();
 		setupAircraftTypes();
 		setupAircrafts();
 		setupLicenses();
+		setupReservations();
 	}
 
 	protected void resetDatabase() throws Exception {
+		em.createQuery("delete from Reservation").executeUpdate();
 		em.createQuery("delete from License").executeUpdate();
 		em.createQuery("delete from User").executeUpdate();
 		em.createQuery("delete from Aircraft").executeUpdate();
@@ -186,9 +195,47 @@ public class TestScenarioBean {
 		Assert.assertEquals(3, licenseService.readAllLicenses().size());
 	}
 
-	protected Date getDate(String dateString) throws ParseException {
+	protected void setupReservations() throws Exception {
+		User pilot1 = userService.findUser("pilot1");
+		Assert.assertNotNull(pilot1);
+		User pilot2 = userService.findUser("pilot2");
+		Assert.assertNotNull(pilot2);
+
+		Aircraft vhfna = aircraftService.findAircraft("VH-FNA");
+		Assert.assertNotNull(vhfna);
+		Aircraft n668us = aircraftService.findAircraft("N668US");
+		Assert.assertNotNull(n668us);
+
+		Reservation p1r1 = new Reservation();
+		p1r1.setUser(pilot1);
+		p1r1.setAircraft(vhfna);
+		p1r1.setValidFrom(getDateTime("2014-07-04 07:15"));
+		p1r1.setValidTo(getDate("2014-07-04 09:45"));
+		p1r1.setState(ReservationState.RESERVED);
+		reservationService.createReservation(p1r1);
+		Assert.assertNotNull(p1r1.getId());
+
+		Reservation p2r1 = new Reservation();
+		p2r1.setUser(pilot2);
+		p2r1.setAircraft(n668us);
+		p2r1.setValidFrom(getDate("2014-07-04 08:00"));
+		p2r1.setValidTo(getDate("2014-07-04 16:00"));
+		p2r1.setState(ReservationState.RESERVED);
+		reservationService.createReservation(p2r1);
+		Assert.assertNotNull(p2r1.getId());
+
+		Assert.assertEquals(2, reservationService.readAllReservations().size());
+	}
+
+	public Date getDate(String dateString) throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 		return df.parse(dateString);
+	}
+
+	public Date getDateTime(String dateTimeString) throws ParseException {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return df.parse(dateTimeString);
 	}
 }

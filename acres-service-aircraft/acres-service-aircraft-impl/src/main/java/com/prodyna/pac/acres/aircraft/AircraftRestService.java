@@ -13,9 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.prodyna.pac.acres.aircraft.Aircraft;
-import com.prodyna.pac.acres.aircraft.AircraftService;
-
 @Path("ac")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -46,5 +43,5 @@ public interface AircraftRestService extends AircraftService {
 	@GET
 	@Path("search")
 	@Override
-	List<Aircraft> findAircrafts(@QueryParam("registration") String registration);
+	Aircraft findAircraft(@QueryParam("registration") String registration);
 }

@@ -7,8 +7,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import com.prodyna.pac.acres.aircraft.Aircraft;
-import com.prodyna.pac.acres.aircraft.AircraftService;
 import com.prodyna.pac.acres.common.logging.Logged;
 import com.prodyna.pac.acres.common.security.Unsecured;
 
@@ -52,7 +50,7 @@ public class AircraftRestServiceResource implements AircraftRestService {
 
 	@PermitAll
 	@Override
-	public List<Aircraft> findAircrafts(String registration) {
-		return service.findAircrafts(registration);
+	public Aircraft findAircraft(String registration) {
+		return service.findAircraft(registration);
 	}
 }

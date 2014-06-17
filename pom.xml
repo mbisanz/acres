@@ -18,6 +18,7 @@
 		<module>acres-ear</module>
 		<module>acres-web</module>
 		<module>acres-dist</module>
+		<module>acres-service-reservation</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
