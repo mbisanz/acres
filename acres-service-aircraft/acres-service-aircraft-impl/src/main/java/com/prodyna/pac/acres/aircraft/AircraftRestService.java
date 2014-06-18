@@ -2,6 +2,8 @@ package com.prodyna.pac.acres.aircraft;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,29 +21,35 @@ import javax.ws.rs.core.MediaType;
 public interface AircraftRestService extends AircraftService {
 
 	@GET
+	@PermitAll
 	@Override
 	List<Aircraft> readAllAircrafts();
 
 	@GET
 	@Path("{id:[0-9][0-9]*}")
+	@PermitAll
 	@Override
 	Aircraft readAircraft(@PathParam("id") long id);
 
 	@POST
+	@RolesAllowed("admin")
 	@Override
 	Aircraft createAircraft(Aircraft aircraft);
 
 	@PUT
+	@RolesAllowed("admin")
 	@Override
 	Aircraft updateAircraft(Aircraft aircraft);
 
 	@DELETE
 	@Path("{id}")
+	@RolesAllowed("admin")
 	@Override
 	void deleteAircraft(@PathParam("id") long id);
 
 	@GET
 	@Path("search")
+	@PermitAll
 	@Override
 	Aircraft findAircraft(@QueryParam("registration") String registration);
 }

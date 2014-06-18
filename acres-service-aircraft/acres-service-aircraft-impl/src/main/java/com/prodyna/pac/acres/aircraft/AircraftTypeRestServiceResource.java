@@ -2,15 +2,13 @@ package com.prodyna.pac.acres.aircraft;
 
 import java.util.List;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import com.prodyna.pac.acres.common.logging.Logged;
 import com.prodyna.pac.acres.common.security.Unsecured;
 
-@Stateless
+@RequestScoped
 @Logged
 public class AircraftTypeRestServiceResource implements AircraftTypeRestService {
 
@@ -18,37 +16,31 @@ public class AircraftTypeRestServiceResource implements AircraftTypeRestService 
 	@Unsecured
 	AircraftTypeService service;
 
-	@PermitAll
 	@Override
 	public AircraftType readAircraftType(long id) {
 		return service.readAircraftType(id);
 	}
 
-	@PermitAll
 	@Override
 	public List<AircraftType> readAllAircraftTypes() {
 		return service.readAllAircraftTypes();
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public AircraftType createAircraftType(AircraftType aircraftType) {
 		return service.createAircraftType(aircraftType);
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public AircraftType updateAircraftType(AircraftType aircraftType) {
 		return service.updateAircraftType(aircraftType);
 	}
 
-	@RolesAllowed("admin")
 	@Override
 	public void deleteAircraftType(long id) {
 		service.deleteAircraftType(id);
 	}
 
-	@PermitAll
 	@Override
 	public AircraftType findAircraftType(String iataCode) {
 		return service.findAircraftType(iataCode);
