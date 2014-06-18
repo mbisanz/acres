@@ -92,6 +92,14 @@ public class User implements Serializable {
 		this.passwordHash = passwordHash;
 	}
 
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

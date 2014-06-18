@@ -68,7 +68,7 @@ public class ReservationServiceBean implements ReservationService {
 	}
 
 	@Override
-	public List<Reservation> findReservations(String login, String aircraftRegistration) {
+	public List<Reservation> findReservations(String login, String aircraftRegistration, ReservationState state) {
 		User user = null;
 		if (login != null) {
 			user = userService.findUser(login);
@@ -86,6 +86,9 @@ public class ReservationServiceBean implements ReservationService {
 		}
 		if (aircraft != null) {
 			predicates.add(cb.equal(reservation.get("aircraft"), aircraft));
+		}
+		if (state != null) {
+			predicates.add(cb.equal(reservation.get("state"), state));
 		}
 		cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 		List<Reservation> result = em.createQuery(cq).getResultList();

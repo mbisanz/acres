@@ -2,7 +2,9 @@ package com.prodyna.pac.acres;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.TimeZone;
 
 import javax.ejb.Stateless;
@@ -127,6 +129,7 @@ public class TestScenarioBean {
 		User guest = new User();
 		guest.setLogin("guest");
 		guest.setPassword("guest");
+		guest.setRoles(new HashSet<String>(Arrays.asList(new String[] { "guest" })));
 		userService.createUser(guest);
 		Assert.assertNotNull(guest.getId());
 
@@ -135,6 +138,7 @@ public class TestScenarioBean {
 		admin.setPassword("admin");
 		admin.setName("Adam Admin");
 		admin.setEmail("admin@acres.pac");
+		admin.setRoles(new HashSet<String>(Arrays.asList(new String[] { "admin" })));
 		userService.createUser(admin);
 		Assert.assertNotNull(admin.getId());
 
@@ -143,6 +147,7 @@ public class TestScenarioBean {
 		pilot1.setPassword("pilot1");
 		pilot1.setName("Paul Pilot");
 		pilot1.setEmail("pilot1@acres.pac");
+		pilot1.setRoles(new HashSet<String>(Arrays.asList(new String[] { "user" })));
 		userService.createUser(pilot1);
 		Assert.assertNotNull(pilot1.getId());
 
@@ -151,6 +156,7 @@ public class TestScenarioBean {
 		pilot2.setPassword("pilot2");
 		pilot2.setName("Peter Pilot");
 		pilot2.setEmail("pilot2@acres.pac");
+		pilot2.setRoles(new HashSet<String>(Arrays.asList(new String[] { "user" })));
 		userService.createUser(pilot2);
 		Assert.assertNotNull(pilot2.getId());
 
@@ -210,7 +216,7 @@ public class TestScenarioBean {
 		p1r1.setUser(pilot1);
 		p1r1.setAircraft(vhfna);
 		p1r1.setValidFrom(getDateTime("2014-07-04 07:15"));
-		p1r1.setValidTo(getDate("2014-07-04 09:45"));
+		p1r1.setValidTo(getDateTime("2014-07-04 09:45"));
 		p1r1.setState(ReservationState.RESERVED);
 		reservationService.createReservation(p1r1);
 		Assert.assertNotNull(p1r1.getId());
@@ -218,8 +224,8 @@ public class TestScenarioBean {
 		Reservation p2r1 = new Reservation();
 		p2r1.setUser(pilot2);
 		p2r1.setAircraft(n668us);
-		p2r1.setValidFrom(getDate("2014-07-04 08:00"));
-		p2r1.setValidTo(getDate("2014-07-04 16:00"));
+		p2r1.setValidFrom(getDateTime("2014-07-04 08:00"));
+		p2r1.setValidTo(getDateTime("2014-07-04 16:00"));
 		p2r1.setState(ReservationState.RESERVED);
 		reservationService.createReservation(p2r1);
 		Assert.assertNotNull(p2r1.getId());

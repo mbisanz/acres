@@ -1,15 +1,13 @@
 package com.prodyna.pac.acres.user;
 
-import java.security.Principal;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.SecurityContext;
 
 import com.prodyna.pac.acres.common.logging.Logged;
 import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.user.context.Current;
 
 @RequestScoped
 @Logged
@@ -19,8 +17,9 @@ public class UserRestServiceResource implements UserRestService {
 	@Unsecured
 	private UserService service;
 
-	@Context
-	SecurityContext securityContext;
+	@Inject
+	@Current
+	private User user;
 
 	@Override
 	public List<User> readAllUsers() {
@@ -54,11 +53,6 @@ public class UserRestServiceResource implements UserRestService {
 
 	@Override
 	public User getCurrentUser() {
-		Principal userPrincipal = securityContext.getUserPrincipal();
-		if (userPrincipal == null) {
-			return null;
-		}
-		User user = service.findUser(userPrincipal.getName());
 		return user;
 	}
 }

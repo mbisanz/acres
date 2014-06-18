@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.prodyna.pac.acres.reservation.Reservation;
@@ -52,5 +53,6 @@ public interface ReservationRestService extends ReservationService {
 	@Path("search")
 	@RolesAllowed("admin")
 	@Override
-	List<Reservation> findReservations(String login, String aircraftRegistration);
+	List<Reservation> findReservations(@QueryParam("login") String login,
+			@QueryParam("ac") String aircraftRegistration, @QueryParam("state") ReservationState state);
 }
