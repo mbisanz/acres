@@ -5,11 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TimeZone;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import org.junit.Assert;
 
@@ -28,9 +28,6 @@ import com.prodyna.pac.acres.user.UserService;
 
 @Stateless
 public class TestScenarioBean {
-
-	@Inject
-	private EntityManager em;
 
 	@Inject
 	@Unsecured
@@ -62,11 +59,28 @@ public class TestScenarioBean {
 	}
 
 	protected void resetDatabase() throws Exception {
-		em.createQuery("delete from Reservation").executeUpdate();
-		em.createQuery("delete from License").executeUpdate();
-		em.createQuery("delete from User").executeUpdate();
-		em.createQuery("delete from Aircraft").executeUpdate();
-		em.createQuery("delete from AircraftType").executeUpdate();
+		List<Reservation> reservations = reservationService
+				.readAllReservations();
+		for (Reservation res : reservations) {
+			reservationService.deleteReservation(res.getId());
+		}
+		List<License> licenses = licenseService.readAllLicenses();
+		for (License lic : licenses) {
+			licenseService.deleteLicense(lic.getId());
+		}
+		List<User> users = userService.readAllUsers();
+		for (User user : users) {
+			userService.deleteUser(user.getId());
+		}
+		List<Aircraft> aircrafts = aircraftService.readAllAircrafts();
+		for (Aircraft ac : aircrafts) {
+			aircraftService.deleteAircraft(ac.getId());
+		}
+		List<AircraftType> aircraftTypes = aircraftTypeService
+				.readAllAircraftTypes();
+		for (AircraftType act : aircraftTypes) {
+			aircraftTypeService.deleteAircraftType(act.getId());
+		}
 	}
 
 	protected void setupAircraftTypes() throws Exception {
