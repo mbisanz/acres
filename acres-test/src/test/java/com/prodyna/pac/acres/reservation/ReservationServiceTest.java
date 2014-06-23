@@ -6,11 +6,10 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.prodyna.pac.acres.TestScenarioBean;
+import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.aircraft.Aircraft;
 import com.prodyna.pac.acres.aircraft.AircraftService;
 import com.prodyna.pac.acres.common.security.Unsecured;
@@ -18,10 +17,7 @@ import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
 
 @RunWith(Arquillian.class)
-public class ReservationServiceTest {
-
-	@Inject
-	TestScenarioBean testScenario;
+public class ReservationServiceTest extends AbstractAcresTest {
 
 	@Inject
 	@Unsecured
@@ -34,11 +30,6 @@ public class ReservationServiceTest {
 	@Inject
 	@Unsecured
 	private ReservationService reservationService;
-
-	@Before
-	public void resetTestSzenario() throws Exception {
-		testScenario.setup();
-	}
 
 	@Test(expected = Exception.class)
 	public void testCreateReservationNoUser() throws Exception {
@@ -70,8 +61,9 @@ public class ReservationServiceTest {
 		Reservation reservation = new Reservation();
 		reservation.setUser(pilot1);
 		reservation.setAircraft(cna);
-		reservation.setValidFrom(testScenario.getDateTime("2014-07-04 11:00"));
-		reservation.setValidTo(testScenario.getDateTime("2014-07-04 11:00"));
+		reservation.setValidFrom(showcaseService
+				.getDateTime("2014-07-04 11:00"));
+		reservation.setValidTo(showcaseService.getDateTime("2014-07-04 11:00"));
 		reservation.setState(ReservationState.RESERVED);
 		reservationService.createReservation(reservation);
 

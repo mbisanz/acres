@@ -6,11 +6,10 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.prodyna.pac.acres.TestScenarioBean;
+import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.aircraft.AircraftType;
 import com.prodyna.pac.acres.aircraft.AircraftTypeService;
 import com.prodyna.pac.acres.common.security.Unsecured;
@@ -18,10 +17,7 @@ import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
 
 @RunWith(Arquillian.class)
-public class LicenseServiceTest {
-
-	@Inject
-	TestScenarioBean testScenario;
+public class LicenseServiceTest extends AbstractAcresTest {
 
 	@Inject
 	@Unsecured
@@ -34,11 +30,6 @@ public class LicenseServiceTest {
 	@Inject
 	@Unsecured
 	private LicenseService licenseService;
-
-	@Before
-	public void resetTestSzenario() throws Exception {
-		testScenario.setup();
-	}
 
 	@Test(expected = Exception.class)
 	public void testCreateLicenseNoUser() throws Exception {

@@ -6,18 +6,14 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.prodyna.pac.acres.TestScenarioBean;
+import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.common.security.Unsecured;
 
 @RunWith(Arquillian.class)
-public class AircraftServiceTest {
-
-	@Inject
-	TestScenarioBean testScenario;
+public class AircraftServiceTest extends AbstractAcresTest {
 
 	@Inject
 	@Unsecured
@@ -26,11 +22,6 @@ public class AircraftServiceTest {
 	@Inject
 	@Unsecured
 	private AircraftService aircraftService;
-
-	@Before
-	public void resetTestSzenario() throws Exception {
-		testScenario.setup();
-	}
 
 	@Test
 	public void testCreateAircraft() throws Exception {
@@ -67,7 +58,8 @@ public class AircraftServiceTest {
 		List<Aircraft> before = aircraftService.readAllAircrafts();
 		Assert.assertEquals(3, before.size());
 
-		aircraftService.deleteAircraft(aircraftService.findAircraft("9M-MPS").getId());
+		aircraftService.deleteAircraft(aircraftService.findAircraft("9M-MPS")
+				.getId());
 
 		List<Aircraft> result = aircraftService.readAllAircrafts();
 		Assert.assertEquals(2, result.size());

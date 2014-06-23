@@ -3,22 +3,17 @@ package com.prodyna.pac.acres.aircraft;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.prodyna.pac.acres.TestScenarioBean;
+import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.common.security.Unsecured;
 
 @RunWith(Arquillian.class)
-public class AircraftTypeServiceTest {
-
-	@Inject
-	TestScenarioBean testScenario;
+public class AircraftTypeServiceTest extends AbstractAcresTest {
 
 	@Inject
 	@Unsecured
@@ -27,11 +22,6 @@ public class AircraftTypeServiceTest {
 	@Inject
 	@Unsecured
 	private AircraftService aircraftService;
-
-	@Before
-	public void resetTestSzenario() throws Exception {
-		testScenario.setup();
-	}
 
 	@Test
 	public void testCreateAircraftType() throws Exception {

@@ -6,19 +6,15 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.prodyna.pac.acres.TestScenarioBean;
+import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.common.security.Unsecured;
 import com.prodyna.pac.acres.user.password.SecureHashService;
 
 @RunWith(Arquillian.class)
-public class UserServiceTest {
-
-	@Inject
-	TestScenarioBean testScenario;
+public class UserServiceTest extends AbstractAcresTest {
 
 	@Inject
 	@Unsecured
@@ -26,11 +22,6 @@ public class UserServiceTest {
 
 	@Inject
 	private SecureHashService secureHashService;
-
-	@Before
-	public void resetTestSzenario() throws Exception {
-		testScenario.setup();
-	}
 
 	@Test(expected = Exception.class)
 	public void testCreateUserNoLogin() throws Exception {
@@ -56,7 +47,8 @@ public class UserServiceTest {
 		userService.createUser(user);
 		Assert.assertNotNull(user.getId());
 		Assert.assertNull(user.getPassword());
-		Assert.assertEquals(secureHashService.calculateHash("test"), user.getPasswordHash());
+		Assert.assertEquals(secureHashService.calculateHash("test"),
+				user.getPasswordHash());
 
 		List<User> result = userService.readAllUsers();
 		Assert.assertEquals(5, result.size());

@@ -1,0 +1,30 @@
+{
+  "name": "acres-web",
+  "version": "0.1.0",
+  "description": "Yet another amazing AngularJS app",
+  "keywords": [
+    "angular"
+  ],
+  "homepage": "https://github.com/mbisanz/acres-web",
+  "bugs": "https://github.com/mbisanz/acres-web/issues",
+  "author": {
+    "name": "",
+    "email": "",
+    "url": "https://github.com/mbisanz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mbisanz/acres-web.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "dependencies": {
+    "bootstrap": "3.1.1",
+    "angular-animate": "^1.3.0-beta.13",
+    "angular-route": "^1.3.0-beta.13",
+    "angular": "^1.3.0-beta.13"
+  }
+}
