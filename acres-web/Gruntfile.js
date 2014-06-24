@@ -1,4 +1,4 @@
-// Generated on 2014-06-23 using generator-angular-bootstrap 0.4.3
+// Generated on 2014-06-24 using generator-angular-bootstrap 0.4.3
 'use strict';
 
 // # Globbing

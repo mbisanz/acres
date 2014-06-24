@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mbisanz.AcresWeb', ['ngAnimate', 'ngRoute'])
+angular.module('mbisanz.AcresWeb', ['ngAnimate', 'ngResource', 'ngRoute'])
 
   .constant('version', 'v0.1.0')
 

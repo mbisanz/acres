@@ -16,6 +16,11 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webResources>
+						<resource>
+							<directory>dist</directory>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
