@@ -3,6 +3,7 @@ package com.prodyna.pac.acres.user;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import com.prodyna.pac.acres.common.logging.Logged;
@@ -19,7 +20,7 @@ public class UserRestServiceResource implements UserRestService {
 
 	@Inject
 	@Current
-	private User user;
+	private Instance<User> user;
 
 	@Override
 	public List<User> readAllUsers() {
@@ -53,6 +54,6 @@ public class UserRestServiceResource implements UserRestService {
 
 	@Override
 	public User getCurrentUser() {
-		return user;
+		return user.get();
 	}
 }
