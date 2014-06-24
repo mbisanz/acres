@@ -13,6 +13,7 @@
 		<module>acres-service-user</module>
 		<module>acres-service-aircraft</module>
 		<module>acres-service-license</module>
+		<module>acres-service-showcase</module>
 		<module>acres-rest</module>
 		<module>acres-test</module>
 		<module>acres-ear</module>
