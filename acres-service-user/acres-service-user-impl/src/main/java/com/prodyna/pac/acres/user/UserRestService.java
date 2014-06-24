@@ -42,6 +42,7 @@ public interface UserRestService extends UserService {
 	User updateUser(User user);
 
 	@DELETE
+	@Path("{id:[0-9][0-9]*}")
 	@RolesAllowed("admin")
 	@Override
 	void deleteUser(@PathParam("id") long id);

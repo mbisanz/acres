@@ -41,7 +41,7 @@ public interface LicenseRestService extends LicenseService {
 	License updateLicense(License License);
 
 	@DELETE
-	@Path("{id}")
+	@Path("{id:[0-9][0-9]*}")
 	@RolesAllowed("admin")
 	@Override
 	void deleteLicense(@PathParam("id") long id);

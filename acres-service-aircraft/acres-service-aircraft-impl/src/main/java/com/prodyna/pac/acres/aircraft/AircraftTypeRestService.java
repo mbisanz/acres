@@ -42,7 +42,7 @@ public interface AircraftTypeRestService extends AircraftTypeService {
 	AircraftType updateAircraftType(AircraftType aircraftType);
 
 	@DELETE
-	@Path("{id}")
+	@Path("{id:[0-9][0-9]*}")
 	@RolesAllowed("admin")
 	@Override
 	void deleteAircraftType(@PathParam("id") long id);

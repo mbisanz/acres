@@ -18,6 +18,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.prodyna.pac.acres.user.password.PasswordEncryptionListener;
 
@@ -84,6 +85,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	@XmlTransient
 	public String getPasswordHash() {
 		return passwordHash;
 	}
