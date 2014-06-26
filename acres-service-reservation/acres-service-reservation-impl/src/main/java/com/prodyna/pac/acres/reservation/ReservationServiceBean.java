@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.validation.ValidationException;
 
 import org.slf4j.Logger;
 
@@ -48,17 +49,20 @@ public class ReservationServiceBean implements ReservationService {
 
 	@Override
 	public List<Reservation> readAllReservations() {
-		return em.createQuery("select e from Reservation e", Reservation.class).getResultList();
+		return em.createQuery("select e from Reservation e", Reservation.class)
+				.getResultList();
 	}
 
 	@Override
 	public Reservation createReservation(Reservation reservation) {
+		validate(reservation);
 		em.persist(reservation);
 		return reservation;
 	}
 
 	@Override
 	public Reservation updateReservation(Reservation reservation) {
+		validate(reservation);
 		return em.merge(reservation);
 	}
 
@@ -68,7 +72,8 @@ public class ReservationServiceBean implements ReservationService {
 	}
 
 	@Override
-	public List<Reservation> findReservations(String login, String aircraftRegistration, ReservationState state) {
+	public List<Reservation> findReservations(String login,
+			String aircraftRegistration, List<ReservationState> states) {
 		User user = null;
 		if (login != null) {
 			user = userService.findUser(login);
@@ -87,11 +92,25 @@ public class ReservationServiceBean implements ReservationService {
 		if (aircraft != null) {
 			predicates.add(cb.equal(reservation.get("aircraft"), aircraft));
 		}
-		if (state != null) {
-			predicates.add(cb.equal(reservation.get("state"), state));
+		if (states != null && !states.isEmpty()) {
+			List<Predicate> statePredicates = new ArrayList<>();
+			for (ReservationState state : states) {
+				statePredicates.add(cb.equal(reservation.get("state"), state));
+			}
+			predicates.add(cb.or(statePredicates
+					.toArray(new Predicate[statePredicates.size()])));
 		}
 		cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 		List<Reservation> result = em.createQuery(cq).getResultList();
 		return result;
+	}
+
+	private void validate(Reservation reservation) {
+		if (reservation.getUser() == null) {
+			throw new ValidationException("User may not be null");
+		}
+		if (reservation.getValidFrom().compareTo(reservation.getValidTo()) > 0) {
+			throw new ValidationException("Start date must be before end date");
+		}
 	}
 }

@@ -14,10 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.prodyna.pac.acres.reservation.Reservation;
-import com.prodyna.pac.acres.reservation.ReservationService;
-
-@Path("reservation")
+@Path("resadm")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface ReservationRestService extends ReservationService {
@@ -54,5 +51,6 @@ public interface ReservationRestService extends ReservationService {
 	@RolesAllowed("admin")
 	@Override
 	List<Reservation> findReservations(@QueryParam("login") String login,
-			@QueryParam("ac") String aircraftRegistration, @QueryParam("state") ReservationState state);
+			@QueryParam("registration") String aircraftRegistration,
+			@QueryParam("state") List<ReservationState> states);
 }

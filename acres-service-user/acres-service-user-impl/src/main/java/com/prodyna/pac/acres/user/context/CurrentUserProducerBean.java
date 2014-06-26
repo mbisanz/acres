@@ -8,6 +8,8 @@ import javax.ejb.Stateless;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+
 import com.prodyna.pac.acres.common.security.Unsecured;
 import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
@@ -19,6 +21,9 @@ import com.prodyna.pac.acres.user.UserService;
  */
 @Stateless
 public class CurrentUserProducerBean {
+
+	@Inject
+	private Logger log;
 
 	@Inject
 	@Unsecured
@@ -37,7 +42,13 @@ public class CurrentUserProducerBean {
 		if (userPrincipal == null) {
 			return null;
 		}
-		User user = service.findUser(userPrincipal.getName());
-		return user;
+		try {
+			User user = service.findUser(userPrincipal.getName());
+			return user;
+		} catch (Exception e) {
+			log.error("Could not resolve user for user principal [{}]",
+					userPrincipal.getName());
+			return null;
+		}
 	}
 }

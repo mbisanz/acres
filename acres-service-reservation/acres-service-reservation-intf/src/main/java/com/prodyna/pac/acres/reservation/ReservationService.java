@@ -14,5 +14,6 @@ public interface ReservationService {
 
 	void deleteReservation(long id);
 
-	List<Reservation> findReservations(String login, String aircraftRegistration, ReservationState state);
+	List<Reservation> findReservations(String login,
+			String aircraftRegistration, List<ReservationState> states);
 }

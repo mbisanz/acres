@@ -1,17 +1,14 @@
 package com.prodyna.pac.acres.reservation;
 
-import java.util.Date;
-
-import com.prodyna.pac.acres.aircraft.Aircraft;
-import com.prodyna.pac.acres.user.User;
+import java.util.List;
 
 public interface ReservationWorkflowService {
 
-	void addReservation(User user, Aircraft aircraft, Date validFrom, Date validTo);
+	List<Reservation> readMyReservations();
 
-	void cancelReservation(User user, long reservationId);
+	Reservation addReservation(Reservation reservation);
 
-	void checkoutAircraft(User user, long reservationId);
+	Reservation cancelReservation(long reservationId);
 
-	void returnAircraft(User user, long reservationId);
+	Reservation checkoutOrReturnAircraft(long reservationId);
 }

@@ -42,7 +42,9 @@ public class ReservationRestServiceResource implements ReservationRestService {
 	}
 
 	@Override
-	public List<Reservation> findReservations(String login, String aircraftRegistration, ReservationState state) {
-		return reservationService.findReservations(login, aircraftRegistration, state);
+	public List<Reservation> findReservations(String login,
+			String aircraftRegistration, List<ReservationState> states) {
+		return reservationService.findReservations(login, aircraftRegistration,
+				states);
 	}
 }

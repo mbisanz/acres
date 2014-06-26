@@ -29,7 +29,6 @@ public class Reservation implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@NotNull
 	private User user;
 
 	@ManyToOne
@@ -37,13 +36,24 @@ public class Reservation implements Serializable {
 	private Aircraft aircraft;
 
 	@Enumerated(EnumType.STRING)
-	@NotNull
 	private ReservationState state;
 
 	@NotNull
 	private Date validFrom;
 	@NotNull
 	private Date validTo;
+
+	public boolean overlaps(Reservation other) {
+		if (validFrom.compareTo(other.getValidFrom()) <= 0
+				&& validTo.compareTo(other.getValidFrom()) <= 0) {
+			return false;
+		}
+		if (validFrom.compareTo(other.getValidTo()) >= 0
+				&& validTo.compareTo(other.getValidTo()) >= 0) {
+			return false;
+		}
+		return true;
+	}
 
 	public Long getId() {
 		return id;
@@ -97,11 +107,13 @@ public class Reservation implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((aircraft == null) ? 0 : aircraft.hashCode());
+		result = prime * result
+				+ ((aircraft == null) ? 0 : aircraft.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		result = prime * result + ((validFrom == null) ? 0 : validFrom.hashCode());
+		result = prime * result
+				+ ((validFrom == null) ? 0 : validFrom.hashCode());
 		result = prime * result + ((validTo == null) ? 0 : validTo.hashCode());
 		return result;
 	}
@@ -147,7 +159,8 @@ public class Reservation implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Reservation [id=" + id + ", user=" + user + ", aircraft=" + aircraft + ", state=" + state
-				+ ", validFrom=" + validFrom + ", validTo=" + validTo + "]";
+		return "Reservation [id=" + id + ", user=" + user + ", aircraft="
+				+ aircraft + ", state=" + state + ", validFrom=" + validFrom
+				+ ", validTo=" + validTo + "]";
 	}
 }

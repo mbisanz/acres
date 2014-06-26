@@ -1,5 +1,6 @@
 package com.prodyna.pac.acres.reservation;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -71,5 +72,30 @@ public class ReservationServiceTest extends AbstractAcresTest {
 
 		List<Reservation> result = reservationService.readAllReservations();
 		Assert.assertEquals(3, result.size());
+	}
+
+	@Test
+	public void testFindReservation() throws Exception {
+		List<Reservation> before = reservationService.readAllReservations();
+		Assert.assertEquals(2, before.size());
+
+		List<Reservation> result;
+		result = reservationService.findReservations(null, null, null);
+		Assert.assertEquals(2, result.size());
+
+		result = reservationService.findReservations("pilot1", null, null);
+		Assert.assertEquals(1, result.size());
+
+		result = reservationService.findReservations(null, "VH-FNA", null);
+		Assert.assertEquals(1, result.size());
+
+		result = reservationService.findReservations(null, "VH-FNA", Arrays
+				.asList(new ReservationState[] { ReservationState.CANCELLED }));
+		Assert.assertEquals(0, result.size());
+
+		result = reservationService.findReservations(null, "VH-FNA", Arrays
+				.asList(new ReservationState[] { ReservationState.CANCELLED,
+						ReservationState.RESERVED }));
+		Assert.assertEquals(1, result.size());
 	}
 }
