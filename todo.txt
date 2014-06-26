@@ -1,0 +1,11 @@
+Server
+- Javadoc
+- Testabdeckung
+- Timer um abgelaufene Reservierungen zu finden
+- Exception Handling
+- Check license?
+- Client Arquillian Tests?
+
+Client
+
+Präsi
