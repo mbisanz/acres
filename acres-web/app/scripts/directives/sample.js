@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mbisanz.AcresWeb')
+angular.module('acres')
 
   .directive('ngHelloWorld', function() {
 

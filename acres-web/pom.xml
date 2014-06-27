@@ -18,7 +18,7 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<webResources>
 						<resource>
-							<directory>dist</directory>
+							<directory>app</directory>
 						</resource>
 					</webResources>
 				</configuration>

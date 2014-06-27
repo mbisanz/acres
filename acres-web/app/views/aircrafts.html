@@ -1,0 +1,48 @@
+<div ng-show="aircrafts">
+	<h1 class="cover-heading">Aircrafts</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Registration</th>
+				<th>Type</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="a in aircrafts">
+				<td>{{a.id}}</td>
+				<td>{{a.registration}}</td>
+				<td>{{a.type.name}}</td>
+				<td>
+					<button class="btn btn-xs btn-primary"
+						ng-click="loadReservations(a);">Show Bookings</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div ng-show="reservations">
+	<h1 class="cover-heading">Aircrafts</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Registration</th>
+				<th>Type</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="a in aircrafts">
+				<td>{{a.id}}</td>
+				<td>{{a.registration}}</td>
+				<td>{{a.type.name}}</td>
+				<td>
+					<button class="btn btn-xs btn-primary"
+						ng-click="updateAircraft(a);">Show Bookings</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

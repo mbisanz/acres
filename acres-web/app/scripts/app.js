@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('mbisanz.AcresWeb', ['ngAnimate', 'ngResource', 'ngRoute'])
+angular.module('acres', ['ngAnimate', 'ngResource', 'ngRoute'])
 
   .constant('version', 'v0.1.0')
 
-  .config(function($locationProvider, $routeProvider) {
+  .config(function($locationProvider, $routeProvider, $httpProvider) {
 
     $locationProvider.html5Mode(false);
 
@@ -12,15 +12,12 @@ angular.module('mbisanz.AcresWeb', ['ngAnimate', 'ngResource', 'ngRoute'])
       .when('/', {
         templateUrl: 'views/home.html'
       })
-      .when('/features', {
-        templateUrl: 'views/features.html'
-      })
-      .when('/contact', {
-        templateUrl: 'views/contact.html'
+      .when('/aircrafts', {
+        templateUrl: 'views/aircrafts.html',
+        controller: 'AircraftCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
-
   });
 

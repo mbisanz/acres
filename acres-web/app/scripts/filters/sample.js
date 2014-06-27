@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mbisanz.AcresWeb')
+angular.module('acres')
 
   .filter('time', function() {
     return function(obj) {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mbisanz.AcresWeb')
+angular.module('acres')
 
   .controller('MainCtrl', function($scope, $location, version) {
 
