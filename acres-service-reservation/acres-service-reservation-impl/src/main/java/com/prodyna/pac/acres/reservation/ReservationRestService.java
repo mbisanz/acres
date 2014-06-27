@@ -14,7 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-@Path("resadm")
+@Path("res")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface ReservationRestService extends ReservationService {
@@ -26,7 +26,7 @@ public interface ReservationRestService extends ReservationService {
 
 	@GET
 	@Path("{id:[0-9][0-9]*}")
-	@RolesAllowed("admin")
+	@RolesAllowed({ "admin", "user" })
 	@Override
 	Reservation readReservation(@PathParam("id") long id);
 
@@ -48,7 +48,7 @@ public interface ReservationRestService extends ReservationService {
 
 	@GET
 	@Path("search")
-	@RolesAllowed("admin")
+	@RolesAllowed({ "admin", "user" })
 	@Override
 	List<Reservation> findReservations(@QueryParam("login") String login,
 			@QueryParam("registration") String aircraftRegistration,
