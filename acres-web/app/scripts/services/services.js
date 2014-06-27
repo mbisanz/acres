@@ -20,8 +20,8 @@ angular.module('acres')
 	)
 	.factory('reservationWorkflowService',
 		[ '$resource', function($resource) {
-			return $resource(baseUrl + '/reswf/:acId', {acId:'@acId'}, {
-				update : {method:'PUT'},
+			return $resource(baseUrl + '/reswf/:resId', {resId:'@resId'}, {
+				update : {method:'PUT'}
 			});
 		} ]
 	)

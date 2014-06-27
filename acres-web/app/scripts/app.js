@@ -16,6 +16,10 @@ angular.module('acres', ['ngAnimate', 'ngResource', 'ngRoute'])
         templateUrl: 'views/aircrafts.html',
         controller: 'AircraftCtrl'
       })
+      .when('/bookings', {
+        templateUrl: 'views/bookings.html',
+        controller: 'BookingCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

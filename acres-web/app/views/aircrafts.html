@@ -1,9 +1,8 @@
-<div ng-show="aircrafts">
+<div ng-hide="showReservations">
 	<h1 class="cover-heading">Aircrafts</h1>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Registration</th>
 				<th>Type</th>
 				<th>Action</th>
@@ -11,7 +10,6 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="a in aircrafts">
-				<td>{{a.id}}</td>
 				<td>{{a.registration}}</td>
 				<td>{{a.type.name}}</td>
 				<td>
@@ -22,6 +20,28 @@
 		</tbody>
 	</table>
 </div>
-<div ng-show="reservations">
-	<h1 class="cover-heading">Reservations</h1>
+<div ng-show="showReservations">
+	<h1 class="cover-heading">Bookings</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Registration</th>
+				<th>Start</th>
+				<th>End</th>
+				<th>User</th>
+				<th>State</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="r in reservations">
+				<td>{{r.aircraft.registration}}</td>
+				<td>{{r.validFrom | date:'yyyy-MM-dd HH:mm'}}</td>
+				<td>{{r.validTo | date:'yyyy-MM-dd HH:mm'}}</td>
+				<td>{{r.user.login}}</td>
+				<td>{{r.state}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<button class="btn btn-xs btn-primary"
+		ng-click="updateAircraftList();">Back to aircraft list</button>
 </div>

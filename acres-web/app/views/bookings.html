@@ -1,0 +1,28 @@
+<h1 class="cover-heading">My Bookings</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Registration</th>
+			<th>Start</th>
+			<th>End</th>
+			<th>State</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="r in reservations">
+			<td>{{r.aircraft.registration}}</td>
+			<td>{{r.validFrom | date:'yyyy-MM-dd HH:mm'}}</td>
+			<td>{{r.validTo | date:'yyyy-MM-dd HH:mm'}}</td>
+			<td>{{r.state}}</td>
+			<td>
+				<button class="btn btn-xs btn-primary"
+					ng-click="cancelReservation(r);" ng-show="r.state == 'RESERVED'">Cancel Booking</button>
+				<button class="btn btn-xs btn-primary"
+					ng-click="updateReservation(r);" ng-show="r.state == 'RESERVED'">Lend Aircraft</button>
+				<button class="btn btn-xs btn-primary"
+					ng-click="updateReservation(r);" ng-show="r.state == 'LENT'">Return Aircraft</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
