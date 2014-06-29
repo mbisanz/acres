@@ -6,6 +6,8 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
+import com.prodyna.pac.acres.common.qualifier.Monitored;
+
 @Monitored
 @Dependent
 @Interceptor

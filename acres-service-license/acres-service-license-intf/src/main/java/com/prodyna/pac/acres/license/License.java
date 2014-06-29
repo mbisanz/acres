@@ -81,10 +81,12 @@ public class License implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((aircraftType == null) ? 0 : aircraftType.hashCode());
+		result = prime * result
+				+ ((aircraftType == null) ? 0 : aircraftType.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		result = prime * result + ((validFrom == null) ? 0 : validFrom.hashCode());
+		result = prime * result
+				+ ((validFrom == null) ? 0 : validFrom.hashCode());
 		result = prime * result + ((validTo == null) ? 0 : validTo.hashCode());
 		return result;
 	}
@@ -128,7 +130,8 @@ public class License implements Serializable {
 
 	@Override
 	public String toString() {
-		return "License [id=" + id + ", user=" + user + ", aircraftType=" + aircraftType + ", validFrom=" + validFrom
-				+ ", validTo=" + validTo + "]";
+		return "License [id=" + id + ", user=" + user + ", aircraftType="
+				+ aircraftType + ", validFrom=" + validFrom + ", validTo="
+				+ validTo + "]";
 	}
 }

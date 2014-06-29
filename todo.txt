@@ -5,11 +5,11 @@ Server
 - Javadoc
 - Testabdeckung
 !- Timer um abgelaufene Reservierungen zu finden
-!- Check license?
 - Client Arquillian Tests?
 
 Client
 !- add reservation
-- replace native login with bootstrap dialog: http://olefriis.blogspot.de/2014/01/http-basic-authentication-in-angularjs.html
+(!) replace native login with bootstrap dialog: http://olefriis.blogspot.de/2014/01/http-basic-authentication-in-angularjs.html
+- nice error messages
 
 Präsi

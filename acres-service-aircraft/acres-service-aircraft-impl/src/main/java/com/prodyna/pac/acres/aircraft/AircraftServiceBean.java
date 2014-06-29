@@ -12,9 +12,9 @@ import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
 
-import com.prodyna.pac.acres.common.logging.Logged;
-import com.prodyna.pac.acres.common.monitoring.Monitored;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Logged;
+import com.prodyna.pac.acres.common.qualifier.Monitored;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 
 @Unsecured
 @Stateless

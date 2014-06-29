@@ -6,6 +6,9 @@ angular.module('acres', ['ngAnimate', 'ngResource', 'ngRoute'])
 
   .config(function($locationProvider, $routeProvider, $httpProvider) {
 
+	// default: always use guest authorization
+    //$httpProvider.defaults.headers.common['Authorization'] = 'Basic Z3Vlc3Q6Z3Vlc3Q=';
+
     $locationProvider.html5Mode(false);
 
     $routeProvider

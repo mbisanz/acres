@@ -18,5 +18,10 @@
   		<artifactId>acres-service-reservation-intf</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>com.prodyna.pac.acres</groupId>
+  		<artifactId>acres-service-license-intf</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>

@@ -10,6 +10,8 @@ import javax.interceptor.InvocationContext;
 
 import org.slf4j.Logger;
 
+import com.prodyna.pac.acres.common.qualifier.Logged;
+
 /**
  * CDI interceptor which logs all method invocations of annotated services.
  * 

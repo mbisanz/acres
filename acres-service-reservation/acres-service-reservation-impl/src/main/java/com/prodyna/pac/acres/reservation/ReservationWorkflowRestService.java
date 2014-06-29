@@ -22,12 +22,12 @@ public interface ReservationWorkflowRestService extends
 	@GET
 	@RolesAllowed("user")
 	@Override
-	List<Reservation> readMyReservations();
+	List<Reservation> readUserReservations();
 
 	@POST
 	@RolesAllowed("user")
 	@Override
-	Reservation addReservation(Reservation reservation);
+	Reservation createUserReservation(Reservation reservation);
 
 	@DELETE
 	@Path("{id:[0-9][0-9]*}")

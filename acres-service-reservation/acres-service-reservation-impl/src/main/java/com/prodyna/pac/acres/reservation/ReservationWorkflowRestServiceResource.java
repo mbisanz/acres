@@ -5,8 +5,8 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import com.prodyna.pac.acres.common.logging.Logged;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Logged;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 
 @RequestScoped
 @Logged
@@ -18,13 +18,13 @@ public class ReservationWorkflowRestServiceResource implements
 	ReservationWorkflowService reservationWorkflowService;
 
 	@Override
-	public List<Reservation> readMyReservations() {
-		return reservationWorkflowService.readMyReservations();
+	public List<Reservation> readUserReservations() {
+		return reservationWorkflowService.readUserReservations();
 	}
 
 	@Override
-	public Reservation addReservation(Reservation reservation) {
-		return reservationWorkflowService.addReservation(reservation);
+	public Reservation createUserReservation(Reservation reservation) {
+		return reservationWorkflowService.createUserReservation(reservation);
 	}
 
 	@Override

@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface ReservationWorkflowService {
 
-	List<Reservation> readMyReservations();
+	List<Reservation> readUserReservations();
 
-	Reservation addReservation(Reservation reservation);
+	Reservation createUserReservation(Reservation reservation);
 
 	Reservation cancelReservation(long reservationId);
 

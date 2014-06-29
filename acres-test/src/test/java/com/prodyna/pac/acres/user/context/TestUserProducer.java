@@ -5,7 +5,8 @@ import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Current;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
 

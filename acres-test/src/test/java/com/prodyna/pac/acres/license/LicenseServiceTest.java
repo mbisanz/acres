@@ -2,7 +2,7 @@ package com.prodyna.pac.acres.license;
 
 import java.util.List;
 
-import javax.ejb.EJBException;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.aircraft.AircraftType;
 import com.prodyna.pac.acres.aircraft.AircraftTypeService;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
 
@@ -32,13 +32,13 @@ public class LicenseServiceTest extends AbstractAcresTest {
 	@Unsecured
 	private LicenseService licenseService;
 
-	@Test(expected = EJBException.class)
+	@Test(expected = EJBTransactionRolledbackException.class)
 	public void testCreateLicenseNoUser() throws Exception {
 		License user = new License();
 		licenseService.createLicense(user);
 	}
 
-	@Test(expected = EJBException.class)
+	@Test(expected = EJBTransactionRolledbackException.class)
 	public void testCreateLicenseNoAircraftType() throws Exception {
 		User pilot1 = userService.findUser("pilot1");
 		Assert.assertNotNull(pilot1);

@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.pac.acres.AbstractAcresTest;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 
 @RunWith(Arquillian.class)
 public class AircraftServiceTest extends AbstractAcresTest {

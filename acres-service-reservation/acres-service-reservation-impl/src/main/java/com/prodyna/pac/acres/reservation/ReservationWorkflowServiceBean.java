@@ -5,20 +5,24 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
 
-import com.prodyna.pac.acres.common.logging.Logged;
-import com.prodyna.pac.acres.common.monitoring.Monitored;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Current;
+import com.prodyna.pac.acres.common.qualifier.Logged;
+import com.prodyna.pac.acres.common.qualifier.Monitored;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
+import com.prodyna.pac.acres.license.License;
+import com.prodyna.pac.acres.license.LicenseService;
+import com.prodyna.pac.acres.reservation.exception.NoValidLicenseException;
 import com.prodyna.pac.acres.reservation.exception.OverlappingReservationExistsException;
 import com.prodyna.pac.acres.reservation.exception.ReservationNotValidException;
 import com.prodyna.pac.acres.reservation.exception.WrongOwnerException;
 import com.prodyna.pac.acres.reservation.exception.WrongStateException;
 import com.prodyna.pac.acres.user.User;
-import com.prodyna.pac.acres.user.context.Current;
 
 @Unsecured
 @Stateless
@@ -38,16 +42,29 @@ public class ReservationWorkflowServiceBean implements
 	private User user;
 
 	@Inject
+	@Current
+	private Instance<Date> currentDate;
+
+	@Inject
+	@Unsecured
+	private LicenseService licenseService;
+
+	@Inject
 	@Unsecured
 	private ReservationService reservationService;
 
 	@Override
-	public List<Reservation> readMyReservations() {
+	public List<Reservation> readUserReservations() {
 		return reservationService.findReservations(user.getLogin(), null, null);
 	}
 
 	@Override
-	public Reservation addReservation(Reservation reservation) {
+	public Reservation createUserReservation(Reservation reservation) {
+		List<License> licenses = licenseService.findLicenses(user.getLogin(),
+				reservation.getAircraft().getType().getIataCode());
+		if (!reservationWithinLicense(reservation, licenses)) {
+			throw new NoValidLicenseException("No valid license");
+		}
 		List<Reservation> existingReservations = reservationService
 				.findReservations(null, reservation.getAircraft()
 						.getRegistration(), Arrays
@@ -90,20 +107,41 @@ public class ReservationWorkflowServiceBean implements
 		} else {
 			throw new WrongStateException();
 		}
-		Date now = now();
-		if (!(reservation.getValidFrom().compareTo(now) <= 0 && reservation
-				.getValidTo().compareTo(now) >= 0)) {
+		Date now = currentDate.get();
+		if (!dateWithinReservation(reservation, now)) {
 			throw new ReservationNotValidException();
 		}
 		return reservationService.updateReservation(reservation);
 	}
 
-	private Reservation loadReservation(long reservationId) {
-		return reservationService.readReservation(reservationId);
+	private boolean dateWithinReservation(Reservation reservation, Date date) {
+		return reservation.getValidFrom().compareTo(date) <= 0
+				&& reservation.getValidTo().compareTo(date) >= 0;
 	}
 
-	private Date now() {
-		// TODO use cdi producer for current date
-		return new Date();
+	private boolean reservationWithinLicense(Reservation reservation,
+			List<License> licenses) {
+		if (licenses == null) {
+			return false;
+		}
+		for (License license : licenses) {
+			if (reservationWithinLicense(reservation, license)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean reservationWithinLicense(Reservation reservation,
+			License license) {
+		boolean licenseBeginsBefore = license.getValidFrom() == null
+				|| license.getValidFrom().compareTo(reservation.getValidFrom()) <= 0;
+		boolean licenseEndsAfter = license.getValidTo() == null
+				|| license.getValidTo().compareTo(reservation.getValidTo()) >= 0;
+		return licenseBeginsBefore && licenseEndsAfter;
+	}
+
+	private Reservation loadReservation(long reservationId) {
+		return reservationService.readReservation(reservationId);
 	}
 }

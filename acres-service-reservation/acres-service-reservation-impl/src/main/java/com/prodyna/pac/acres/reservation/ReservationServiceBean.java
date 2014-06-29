@@ -18,9 +18,9 @@ import org.slf4j.Logger;
 
 import com.prodyna.pac.acres.aircraft.Aircraft;
 import com.prodyna.pac.acres.aircraft.AircraftService;
-import com.prodyna.pac.acres.common.logging.Logged;
-import com.prodyna.pac.acres.common.monitoring.Monitored;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Logged;
+import com.prodyna.pac.acres.common.qualifier.Monitored;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
 
@@ -119,6 +119,12 @@ public class ReservationServiceBean implements ReservationService {
 	}
 
 	private void validate(Reservation reservation) {
+		if (reservation.getValidFrom() == null) {
+			return;
+		}
+		if (reservation.getValidTo() == null) {
+			return;
+		}
 		if (reservation.getValidFrom().compareTo(reservation.getValidTo()) > 0) {
 			throw new ValidationException("Start date must be before end date");
 		}

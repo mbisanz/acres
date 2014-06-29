@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import javax.ejb.Stateless;
 import javax.xml.bind.DatatypeConverter;
 
-import com.prodyna.pac.acres.common.logging.Logged;
+import com.prodyna.pac.acres.common.qualifier.Logged;
 
 @Stateless
 @Logged

@@ -1,8 +1,6 @@
-package com.prodyna.pac.acres.common.security;
+package com.prodyna.pac.acres.common.qualifier;
 
-import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -11,17 +9,17 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.inject.Qualifier;
+import javax.interceptor.InterceptorBinding;
 
 /**
- * Annotation for marking unsecured (internal) service beans.
+ * Annotation for marking services for monitoring the service calls.
  * 
  * @author Martin Bisanz, PRODYNA AG
  */
-@Qualifier
+@InterceptorBinding
 @Inherited
-@Target({ TYPE, METHOD, FIELD, PARAMETER })
+@Target({ TYPE, METHOD })
 @Retention(RUNTIME)
 @Documented
-public @interface Unsecured {
+public @interface Monitored {
 }

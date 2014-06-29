@@ -5,8 +5,8 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import com.prodyna.pac.acres.common.logging.Logged;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Logged;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 
 @RequestScoped
 @Logged

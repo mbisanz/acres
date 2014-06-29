@@ -3,7 +3,7 @@ package com.prodyna.pac.acres.reservation;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.ejb.EJBException;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.aircraft.Aircraft;
 import com.prodyna.pac.acres.aircraft.AircraftService;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
 
@@ -33,19 +33,22 @@ public class ReservationServiceTest extends AbstractAcresTest {
 	@Unsecured
 	private ReservationService reservationService;
 
-	@Test(expected = EJBException.class)
+	@Test(expected = EJBTransactionRolledbackException.class)
 	public void testCreateReservationNoUser() throws Exception {
 		Reservation user = new Reservation();
 		reservationService.createReservation(user);
 	}
 
-	@Test(expected = EJBException.class)
+	@Test(expected = EJBTransactionRolledbackException.class)
 	public void testCreateReservationNoAircraft() throws Exception {
 		User pilot1 = userService.findUser("pilot1");
 		Assert.assertNotNull(pilot1);
 
 		Reservation reservation = new Reservation();
 		reservation.setUser(pilot1);
+		reservation.setValidFrom(showcaseService
+				.getDateTime("2014-07-04 11:00"));
+		reservation.setValidTo(showcaseService.getDateTime("2014-07-04 11:00"));
 		reservationService.createReservation(reservation);
 	}
 

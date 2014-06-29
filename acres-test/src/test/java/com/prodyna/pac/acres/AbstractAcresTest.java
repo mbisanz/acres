@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import org.junit.Before;
 
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 import com.prodyna.pac.acres.showcase.ShowcaseService;
 
 public class AbstractAcresTest {

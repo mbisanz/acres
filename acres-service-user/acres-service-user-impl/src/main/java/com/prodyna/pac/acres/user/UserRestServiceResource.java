@@ -6,9 +6,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import com.prodyna.pac.acres.common.logging.Logged;
-import com.prodyna.pac.acres.common.security.Unsecured;
-import com.prodyna.pac.acres.user.context.Current;
+import com.prodyna.pac.acres.common.qualifier.Current;
+import com.prodyna.pac.acres.common.qualifier.Logged;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 
 @RequestScoped
 @Logged

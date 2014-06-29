@@ -18,6 +18,7 @@ public class Deployments {
 		wa.addPackages(true, "com.prodyna.pac.acres");
 		wa.addAsResource("META-INF/persistence.xml");
 		wa.addAsWebInfResource(new File("src/test/webapp/WEB-INF/beans.xml"), "beans.xml");
+		wa.addAsWebInfResource(new File("src/test/webapp/WEB-INF/ejb-jar.xml"), "ejb-jar.xml");
 		System.out.println(wa.toString(true));
 		return wa;
 	}

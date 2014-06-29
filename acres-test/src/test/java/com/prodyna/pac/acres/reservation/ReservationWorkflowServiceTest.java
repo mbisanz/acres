@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
 import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.aircraft.Aircraft;
 import com.prodyna.pac.acres.aircraft.AircraftService;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
+import com.prodyna.pac.acres.reservation.exception.NoValidLicenseException;
 import com.prodyna.pac.acres.user.UserService;
 
 @RunWith(Arquillian.class)
@@ -44,7 +45,24 @@ public class ReservationWorkflowServiceTest extends AbstractAcresTest {
 		res.setAircraft(aircraft);
 		res.setValidFrom(now);
 		res.setValidTo(plusHours(now, 1));
-		reservationWorkflowService.addReservation(res);
+
+		Reservation result = reservationWorkflowService
+				.createUserReservation(res);
+		Assert.assertNotNull(result.getId());
+	}
+
+	@Test(expected = NoValidLicenseException.class)
+	public void testAddReservationNoLicense() throws Exception {
+		Aircraft aircraft = aircraftService.findAircraft("N668US");
+		Assert.assertNotNull(aircraft);
+
+		Date now = now();
+		Reservation res = new Reservation();
+		res.setAircraft(aircraft);
+		res.setValidFrom(now);
+		res.setValidTo(plusHours(now, 1));
+
+		reservationWorkflowService.createUserReservation(res);
 	}
 
 	private Date now() {

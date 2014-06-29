@@ -13,9 +13,9 @@ import javax.validation.ValidationException;
 
 import org.slf4j.Logger;
 
-import com.prodyna.pac.acres.common.logging.Logged;
-import com.prodyna.pac.acres.common.monitoring.Monitored;
-import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.common.qualifier.Logged;
+import com.prodyna.pac.acres.common.qualifier.Monitored;
+import com.prodyna.pac.acres.common.qualifier.Unsecured;
 import com.prodyna.pac.acres.user.password.SecureHashService;
 
 @Unsecured
