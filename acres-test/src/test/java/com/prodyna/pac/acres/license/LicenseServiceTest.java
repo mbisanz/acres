@@ -2,6 +2,7 @@ package com.prodyna.pac.acres.license;
 
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -31,13 +32,13 @@ public class LicenseServiceTest extends AbstractAcresTest {
 	@Unsecured
 	private LicenseService licenseService;
 
-	@Test(expected = Exception.class)
+	@Test(expected = EJBException.class)
 	public void testCreateLicenseNoUser() throws Exception {
 		License user = new License();
 		licenseService.createLicense(user);
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = EJBException.class)
 	public void testCreateLicenseNoAircraftType() throws Exception {
 		User pilot1 = userService.findUser("pilot1");
 		Assert.assertNotNull(pilot1);

@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +19,9 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.prodyna.pac.acres.user.password.PasswordEncryptionListener;
-
 @Entity
 @Table(name = "acres_user_user", uniqueConstraints = @UniqueConstraint(columnNames = { "login" }))
 @XmlRootElement(name = "user")
-@EntityListeners(PasswordEncryptionListener.class)
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

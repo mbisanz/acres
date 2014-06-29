@@ -7,10 +7,12 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class NoResultExceptionHandler implements ExceptionMapper<NoResultException> {
+public class NoResultExceptionHandler implements
+		ExceptionMapper<NoResultException> {
 
 	@Override
 	public Response toResponse(NoResultException exception) {
-		return Response.status(Status.NOT_FOUND).entity(exception.getMessage()).build();
+		return Response.status(Status.BAD_REQUEST)
+				.entity(exception.getMessage()).build();
 	}
 }

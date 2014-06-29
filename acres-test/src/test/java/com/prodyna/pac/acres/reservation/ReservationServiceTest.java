@@ -3,6 +3,7 @@ package com.prodyna.pac.acres.reservation;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,13 +33,13 @@ public class ReservationServiceTest extends AbstractAcresTest {
 	@Unsecured
 	private ReservationService reservationService;
 
-	@Test(expected = Exception.class)
+	@Test(expected = EJBException.class)
 	public void testCreateReservationNoUser() throws Exception {
 		Reservation user = new Reservation();
 		reservationService.createReservation(user);
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = EJBException.class)
 	public void testCreateReservationNoAircraft() throws Exception {
 		User pilot1 = userService.findUser("pilot1");
 		Assert.assertNotNull(pilot1);

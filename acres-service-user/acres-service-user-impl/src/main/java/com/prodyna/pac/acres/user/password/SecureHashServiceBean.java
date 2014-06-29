@@ -18,9 +18,11 @@ public class SecureHashServiceBean implements SecureHashService {
 	public String calculateHash(String plain) {
 		try {
 
-			byte[] digest = MessageDigest.getInstance(HASH_ALGORITHM).digest(plain.getBytes(PASSWORD_ENCODING));
+			byte[] digest = MessageDigest.getInstance(HASH_ALGORITHM).digest(
+					plain.getBytes(PASSWORD_ENCODING));
 			return DatatypeConverter.printHexBinary(digest);
 		} catch (Exception e) {
+			// should not happen, as SHA-256 and UTF-8 are always supported
 			throw new RuntimeException("Could not calculate hash", e);
 		}
 	}

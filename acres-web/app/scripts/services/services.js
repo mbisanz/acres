@@ -25,4 +25,9 @@ angular.module('acres')
 			});
 		} ]
 	)
+	.factory('showcaseService',
+		[ '$resource', function($resource) {
+			return $resource(baseUrl + '/showcase');
+		} ]
+	)
 ;

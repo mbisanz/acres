@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import com.prodyna.pac.acres.common.logging.Logged;
 import com.prodyna.pac.acres.common.monitoring.Monitored;
 import com.prodyna.pac.acres.common.security.Unsecured;
+import com.prodyna.pac.acres.user.password.SecureHashService;
 
 @Unsecured
 @Stateless
@@ -28,6 +30,9 @@ public class UserServiceBean implements UserService {
 	@Inject
 	private EntityManager em;
 
+	@Inject
+	private SecureHashService secureHashService;
+
 	@Override
 	public User readUser(long id) {
 		return em.find(User.class, id);
@@ -35,7 +40,8 @@ public class UserServiceBean implements UserService {
 
 	@Override
 	public List<User> readAllUsers() {
-		return em.createQuery("select u from User u", User.class).getResultList();
+		return em.createQuery("select u from User u", User.class)
+				.getResultList();
 	}
 
 	@Override
@@ -43,18 +49,38 @@ public class UserServiceBean implements UserService {
 		if (user.getPassword() == null || user.getPassword().length() == 0) {
 			throw new ValidationException("Password is required");
 		}
+		String passwordHash = secureHashService.calculateHash(user
+				.getPassword());
+		user.setPasswordHash(passwordHash);
+		user.setPassword(null);
 		em.persist(user);
 		return user;
 	}
 
 	@Override
 	public User updateUser(User user) {
+		User existing = em.find(User.class, user.getId());
+		if (existing == null) {
+			throw new NoResultException("User does not exist");
+		}
+		if (user.getPassword() != null && user.getPassword().length() > 0) {
+			String passwordHash = secureHashService.calculateHash(user
+					.getPassword());
+			user.setPasswordHash(passwordHash);
+		} else {
+			user.setPasswordHash(existing.getPasswordHash());
+		}
+		user.setPassword(null);
 		return em.merge(user);
 	}
 
 	@Override
 	public void deleteUser(long id) {
-		em.remove(em.find(User.class, id));
+		User existing = em.find(User.class, id);
+		if (existing == null) {
+			throw new NoResultException("User does not exist");
+		}
+		em.remove(existing);
 	}
 
 	@Override

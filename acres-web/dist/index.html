@@ -1,0 +1,65 @@
+<!doctype html>
+<!--[if lt IE 9]> <html class="no-js lt-ie9" lang="en" ng-app="acres"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" ng-app="acres"> <!--<![endif]-->
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ACRES - AirCraft REservation System</title>
+  <meta name="description" content="Yet another amazing AngularJS app">
+
+<!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<![endif]-->
+
+  <!-- Sets initial viewport load and disables zooming  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Set a shorter title for iOS6 devices when saved to home screen -->
+  <meta name="apple-mobile-web-app-title" content="AcresWeb">
+
+  <!-- Properties for Google+ snippets -->
+  <meta property="og:title" content="ACRES">
+  <meta property="og:description" content="AirCraft REservation System">
+  <meta property="og:image" content="http://upload.wikimedia.org/wikipedia/commons/5/5c/W165_-_Low_Flying_Aircraft_-_Warning_Sign_Ireland.png">
+
+  <!-- Author of this application -->
+  <link rel="author" href="https://github.com/mbisanz"> 
+  <link rel="icon" href="http://www.favicon.cc/favicon/961/197/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="http://www.favicon.cc/favicon/961/197/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="styles/df04649e.components.min.css"/>
+
+  <link rel="stylesheet" href="styles/f081a95f.main.min.css"/>
+
+</head>
+
+<body ontouchstart ng-controller="MainCtrl">
+
+	<login-dialog></login-dialog>
+	<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="masthead clearfix">
+          <div class="inner" ng-include="'views/partials/header.html'"></div>
+        </div>
+        <div class="inner cover">
+          <div class="inner" ng-view></div>
+        </div>
+        <div class="mastfoot">
+          <div class="inner" ng-include="'views/partials/footer.html'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/aee299ee.components.min.js"></script>
+
+  <script src="scripts/5269b1e7.app.min.js"></script>
+
+</body>
+
+</html>
