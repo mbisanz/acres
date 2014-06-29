@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -34,7 +35,8 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 
 	@Override
 	public List<AircraftType> readAllAircraftTypes() {
-		return em.createQuery("select act from AircraftType act", AircraftType.class).getResultList();
+		return em.createQuery("select act from AircraftType act",
+				AircraftType.class).getResultList();
 	}
 
 	@Override
@@ -45,12 +47,21 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 
 	@Override
 	public AircraftType updateAircraftType(AircraftType aircraftType) {
+		AircraftType existing = em.find(AircraftType.class,
+				aircraftType.getId());
+		if (existing == null) {
+			throw new NoResultException("AircraftType does not exist");
+		}
 		return em.merge(aircraftType);
 	}
 
 	@Override
 	public void deleteAircraftType(long id) {
-		em.remove(em.find(AircraftType.class, id));
+		AircraftType existing = em.find(AircraftType.class, id);
+		if (existing == null) {
+			throw new NoResultException("AircraftType does not exist");
+		}
+		em.remove(existing);
 	}
 
 	@Override

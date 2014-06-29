@@ -1,6 +1,13 @@
 AirCraft REservation System - Showcase for PAC
 ==============================================
 
+Welcome to ACRES.
+
+Continuous Integration Server
+-----------------------------
+
+https://buildhive.cloudbees.com/job/mbisanz/job/acres/
+
 System requirements
 -------------------
 
@@ -12,20 +19,20 @@ The application is designed to be run on JBoss WildFly 8.
 
 You need a Hibernate supported database for this application. Setup scripts and instructions for MySQL 5.1 are included. 
 
+Prepare the database
+--------------------
+
+Instructions for MySQL:
+
+- Create database user and database, e.g.
+```
+create user 'acres'@'localhost' identified by 'acres';
+create database acres;
+grant all on acres.* to 'acres'@'localhost';
+```
+- Create the schema using acres-dist/sql/ddl/acres-schema-mysql.sql
+- Create initial users using acres-dist/sql/data/acres-initial-mysql.sql. This creates the showcase users guest/guest, admin/admin, pilot1/pilot1, pilot2/pilot2. At least the admin user is required in order to be able to connect to the rest services and create new users.
   
-Build and test the application
-------------------------------
-
-From this directory, use maven to build the application ear file:
-
-        mvn clean package
-        
-This also executes all JUnit test within the application, especially Arquillian integration tests in acres-test.
-
-_NOTE: Make sure you have not started wildfly when executing the tests as the tests will start up an embedded WildFly server using the standard ports, which could interfere with a running WildFly or other web or application server._
-
-Then copy "target/acres.ear" to your wildfly deployment directory.
-
 Prepare the application server
 ------------------------------
 
@@ -34,8 +41,8 @@ The application requires a data source and a security domain to be configured in
 Instructions for MySQL:
 
 - Deploy MySQL JDBC driver to standalone/deployments
-- Add a JBoss administrator via add-user script
-- Add data source AcresDS via admin GUI (localhost:9990) or standalone.xml:
+- Optional: Add a JBoss administrator via add-user script to be able to access admin GUI
+- Add data source "AcresDS" via admin GUI (localhost:9990) or standalone.xml:
 ```
 <datasource jta="false" jndi-name="java:jboss/datasources/AcresDS" pool-name="AcresDS" enabled="true" use-ccm="false">
     <connection-url>jdbc:mysql://localhost:3306/acres</connection-url>
@@ -71,19 +78,18 @@ Instructions for MySQL:
 </security-domain>
 ```
 
-Prepare the database
---------------------
+Build and test the application
+------------------------------
 
-Instructions for MySQL:
+From this directory, use maven to build the application ear file:
 
-- Create database user and database, e.g.
-```
-create user 'acres'@'localhost' identified by 'acres';
-create database acres;
-grant all on acres.* to 'acres'@'localhost';
-```
-- Create the schema using acres-dist/sql/ddl/acres-schema-mysql.sql
-- Create initial users using acres-dist/sql/data/acres-initial-mysql.sql. This creates the showcase users guest/guest, admin/admin, pilot1/pilot1, pilot2/pilot2. At least the admin user is required in order to be able to connect to the rest services and create new users.
+        mvn clean package
+        
+This also executes all JUnit test within the application, especially Arquillian integration tests in acres-test.
+
+_NOTE: Make sure you have not started wildfly when executing the tests as the tests will start up an embedded WildFly server using the standard ports, which could interfere with a running WildFly or other web or application server._
+
+Then copy "acres-ear/target/acres.ear" and "acres-web/target/acres-web.war" to your wildfly deployment directory.
 
 Browse the client
 -----------------

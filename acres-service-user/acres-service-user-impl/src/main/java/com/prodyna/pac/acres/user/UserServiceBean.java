@@ -89,7 +89,11 @@ public class UserServiceBean implements UserService {
 		CriteriaQuery<User> cq = cb.createQuery(User.class);
 		Root<User> user = cq.from(User.class);
 		cq.where(cb.equal(user.get("login"), login));
-		User result = em.createQuery(cq).getSingleResult();
-		return result;
+		try {
+			User result = em.createQuery(cq).getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }

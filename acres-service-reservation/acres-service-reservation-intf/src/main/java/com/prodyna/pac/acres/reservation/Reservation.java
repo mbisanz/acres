@@ -29,6 +29,7 @@ public class Reservation implements Serializable {
 	private Long id;
 
 	@ManyToOne
+	@NotNull
 	private User user;
 
 	@ManyToOne

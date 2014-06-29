@@ -1,11 +1,13 @@
 package com.prodyna.pac.acres.reservation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -62,13 +64,21 @@ public class ReservationServiceBean implements ReservationService {
 
 	@Override
 	public Reservation updateReservation(Reservation reservation) {
+		Reservation existing = em.find(Reservation.class, reservation.getId());
+		if (existing == null) {
+			throw new NoResultException("Reservation does not exist");
+		}
 		validate(reservation);
 		return em.merge(reservation);
 	}
 
 	@Override
 	public void deleteReservation(long id) {
-		em.remove(em.find(Reservation.class, id));
+		Reservation existing = em.find(Reservation.class, id);
+		if (existing == null) {
+			throw new NoResultException("Reservation does not exist");
+		}
+		em.remove(existing);
 	}
 
 	@Override
@@ -77,6 +87,9 @@ public class ReservationServiceBean implements ReservationService {
 		User user = null;
 		if (login != null) {
 			user = userService.findUser(login);
+			if (user == null) {
+				return Collections.emptyList();
+			}
 		}
 		Aircraft aircraft = null;
 		if (aircraftRegistration != null) {
@@ -106,9 +119,6 @@ public class ReservationServiceBean implements ReservationService {
 	}
 
 	private void validate(Reservation reservation) {
-		if (reservation.getUser() == null) {
-			throw new ValidationException("User may not be null");
-		}
 		if (reservation.getValidFrom().compareTo(reservation.getValidTo()) > 0) {
 			throw new ValidationException("Start date must be before end date");
 		}

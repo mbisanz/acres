@@ -1,11 +1,13 @@
 package com.prodyna.pac.acres.license;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -48,7 +50,8 @@ public class LicenseServiceBean implements LicenseService {
 
 	@Override
 	public List<License> readAllLicenses() {
-		return em.createQuery("select e from License e", License.class).getResultList();
+		return em.createQuery("select e from License e", License.class)
+				.getResultList();
 	}
 
 	@Override
@@ -58,13 +61,21 @@ public class LicenseServiceBean implements LicenseService {
 	}
 
 	@Override
-	public License updateLicense(License License) {
-		return em.merge(License);
+	public License updateLicense(License license) {
+		License existing = em.find(License.class, license.getId());
+		if (existing == null) {
+			throw new NoResultException("License does not exist");
+		}
+		return em.merge(license);
 	}
 
 	@Override
 	public void deleteLicense(long id) {
-		em.remove(em.find(License.class, id));
+		License existing = em.find(License.class, id);
+		if (existing == null) {
+			throw new NoResultException("License does not exist");
+		}
+		em.remove(existing);
 	}
 
 	@Override
@@ -72,10 +83,16 @@ public class LicenseServiceBean implements LicenseService {
 		User user = null;
 		if (login != null) {
 			user = userService.findUser(login);
+			if (user == null) {
+				return Collections.emptyList();
+			}
 		}
 		AircraftType aircraftType = null;
 		if (acType != null) {
 			aircraftType = aircraftTypeService.findAircraftType(acType);
+			if (aircraftType == null) {
+				return Collections.emptyList();
+			}
 		}
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<License> cq = cb.createQuery(License.class);

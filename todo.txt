@@ -5,7 +5,6 @@ Server
 - Javadoc
 - Testabdeckung
 !- Timer um abgelaufene Reservierungen zu finden
-- Exception Handling (UserService ok, ...
 !- Check license?
 - Client Arquillian Tests?
 
