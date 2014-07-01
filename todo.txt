@@ -5,7 +5,7 @@ Server
 
 Client
 !- add reservation
-(!) replace native login with bootstrap dialog: http://olefriis.blogspot.de/2014/01/http-basic-authentication-in-angularjs.html
 - nice error messages
+- bower include angular-cookies
 
 Präsi
