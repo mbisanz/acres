@@ -4,8 +4,7 @@ Server
 - Client Arquillian Tests?
 
 Client
-!- add reservation
+!- add/edit reservation
 - nice error messages
-- bower include angular-cookies
 
 Präsi
