@@ -1,13 +1,10 @@
 'use strict';
 
-angular.module('acres', ['ngAnimate', 'ngResource', 'ngRoute'])
+angular.module('acres', ['ngAnimate', 'ngResource', 'ngRoute', 'ngCookies', 'http-auth-interceptor'])
 
   .constant('version', 'v0.1.0')
 
-  .config(function($locationProvider, $routeProvider, $httpProvider) {
-
-	// default: always use guest authorization
-    //$httpProvider.defaults.headers.common['Authorization'] = 'Basic Z3Vlc3Q6Z3Vlc3Q=';
+  .config(function($locationProvider, $routeProvider) {
 
     $locationProvider.html5Mode(false);
 

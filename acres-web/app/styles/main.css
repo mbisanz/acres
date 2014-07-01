@@ -13,7 +13,7 @@ a:hover {
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
-  color: #333;
+  color: 	;
   text-shadow: none; /* Prevent inheritence from `body` */
   background-color: #fff;
   border: 1px solid #fff;
@@ -27,7 +27,7 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #333;
+  background-color: #929181;
 }
 body {
   color: #fff;
@@ -158,4 +158,11 @@ body {
   .cover-container {
     width: 700px;
   }
+}
+
+/*
+ * Change some colors
+ */
+.modal-content {
+	background-color: #137DA9;
 }

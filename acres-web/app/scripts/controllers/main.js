@@ -2,7 +2,7 @@
 
 angular.module('acres')
 
-  .controller('MainCtrl', function($scope, $location, version, showcaseService) {
+  .controller('MainCtrl', function($scope, $location, version, showcaseService, loginService) {
 
     $scope.$path = $location.path.bind($location);
     $scope.version = version;
@@ -10,5 +10,4 @@ angular.module('acres')
     $scope.resetShowcase = function() {
     	showcaseService.save();
     };
-
   });
