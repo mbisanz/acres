@@ -166,3 +166,6 @@ body {
 .modal-content {
 	background-color: #137DA9;
 }
+.btn.dropdown-toggle {
+	color: #000;
+}

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('acres', ['ngAnimate', 'ngResource', 'ngRoute', 'ngCookies', 'http-auth-interceptor'])
+angular.module('acres', ['ngAnimate', 'ngResource', 'ngRoute', 'ngCookies', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'http-auth-interceptor'])
 
   .constant('version', 'v0.1.0')
 

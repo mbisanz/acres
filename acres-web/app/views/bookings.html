@@ -1,28 +1,69 @@
-<h1 class="cover-heading">My Bookings</h1>
-<table class="table">
-	<thead>
-		<tr>
-			<th>Registration</th>
-			<th>Start</th>
-			<th>End</th>
-			<th>State</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="r in reservations">
-			<td>{{r.aircraft.registration}}</td>
-			<td>{{r.validFrom | date:'yyyy-MM-dd HH:mm'}}</td>
-			<td>{{r.validTo | date:'yyyy-MM-dd HH:mm'}}</td>
-			<td>{{r.state}}</td>
-			<td>
-				<button class="btn btn-xs btn-primary"
-					ng-click="cancelReservation(r);" ng-show="r.state == 'RESERVED'">Cancel Booking</button>
-				<button class="btn btn-xs btn-primary"
-					ng-click="updateReservation(r);" ng-show="r.state == 'RESERVED'">Lend Aircraft</button>
-				<button class="btn btn-xs btn-primary"
-					ng-click="updateReservation(r);" ng-show="r.state == 'LENT'">Return Aircraft</button>
-			</td>
-		</tr>
-	</tbody>
-</table>
+<div ng-hide="showEditReservation">
+	<h1 class="cover-heading">My Bookings</h1>
+	<div class="btn-toolbar pull-right">
+		<button class="btn btn-primary" ng-click="editReservation(null);">Add
+			booking</button>
+	</div>
+		<table class="table">
+		<thead>
+			<tr>
+				<th>Registration</th>
+				<th>Start</th>
+				<th>End</th>
+				<th>State</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="r in reservations">
+				<td>{{r.aircraft.registration}}</td>
+				<td>{{r.validFrom | date:'yyyy-MM-dd HH:mm'}}</td>
+				<td>{{r.validTo | date:'yyyy-MM-dd HH:mm'}}</td>
+				<td>{{r.state}}</td>
+				<td>
+					<button class="btn btn-xs btn-primary"
+						ng-click="editReservation(r);" ng-show="r.state == 'RESERVED'">Edit</button>
+					<button class="btn btn-xs btn-primary"
+						ng-click="cancelReservation(r);" ng-show="r.state == 'RESERVED'">Cancel</button>
+					<button class="btn btn-xs btn-primary"
+						ng-click="updateReservation(r);" ng-show="r.state == 'RESERVED'">Lend</button>
+					<button class="btn btn-xs btn-primary"
+						ng-click="updateReservation(r);" ng-show="r.state == 'LENT'">Return</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div ng-show="showEditReservation">
+	<h1 class="cover-heading">Edit Booking</h1>
+	<div class="row">
+		<label class="col-lg-3 control-label" for="aircraft">Registration</label>
+		<div class="col-lg-3 btn-group" dropdown is-open="status.isopen">
+			<button type="button" class="btn dropdown-toggle"
+				ng-disabled="disabled">
+				{{reservation.aircraft.registration}}<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li ng-repeat="aircraft in aircrafts"><a
+					ng-click="aircraftSelected(aircraft)"><div>{{aircraft.registration}}</div>
+						<small>Type: {{aircraft.type.iataCode}}</small></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<label class="col-lg-3 control-label" for="password">Begin</label>
+		<div class="col-lg-3">
+			<datetimepicker data-ng-model="reservation.validFrom" />
+		</div>
+		<label class="col-lg-3 control-label" for="password">End</label>
+		<div class="col-lg-3">
+			<datetimepicker data-ng-model="reservation.validTo" />
+		</div>
+	</div>
+	<div class="btn-toolbar pull-right">
+		<button class="btn btn-primary pull-right"
+			ng-click="saveReservation();">Save</button>
+		<button class="btn btn-primary pull-right" ng-click="cancelEdit();">Cancel</button>
+	</div>
+</div>

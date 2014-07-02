@@ -2,6 +2,7 @@ Server
 - Javadoc
 - Testabdeckung
 - Client Arquillian Tests?
+!- User Reservation Update
 
 Client
 !- add/edit reservation
