@@ -16,28 +16,32 @@ import javax.ws.rs.core.MediaType;
 @Path("reswf")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public interface ReservationWorkflowRestService extends
-		ReservationWorkflowService {
+public interface ReservationWorkflowRestService extends ReservationWorkflowService {
 
 	@GET
-	@RolesAllowed("user")
+	@RolesAllowed({ "user", "admin" })
 	@Override
 	List<Reservation> readUserReservations();
 
 	@POST
-	@RolesAllowed("user")
+	@RolesAllowed({ "user", "admin" })
 	@Override
 	Reservation createUserReservation(Reservation reservation);
 
-	@DELETE
-	@Path("{id:[0-9][0-9]*}")
-	@RolesAllowed("user")
+	@PUT
+	@RolesAllowed({ "user", "admin" })
 	@Override
-	Reservation cancelReservation(@PathParam("id") long reservationId);
+	Reservation updateUserReservation(Reservation reservation);
 
 	@PUT
 	@Path("{id:[0-9][0-9]*}")
-	@RolesAllowed("user")
+	@RolesAllowed({ "user", "admin" })
 	@Override
 	Reservation checkoutOrReturnAircraft(@PathParam("id") long reservationId);
+
+	@DELETE
+	@Path("{id:[0-9][0-9]*}")
+	@RolesAllowed({ "user", "admin" })
+	@Override
+	Reservation cancelReservation(@PathParam("id") long reservationId);
 }

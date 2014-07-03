@@ -8,6 +8,8 @@ public interface ReservationWorkflowService {
 
 	Reservation createUserReservation(Reservation reservation);
 
+	Reservation updateUserReservation(Reservation reservation);
+	
 	Reservation cancelReservation(long reservationId);
 
 	Reservation checkoutOrReturnAircraft(long reservationId);

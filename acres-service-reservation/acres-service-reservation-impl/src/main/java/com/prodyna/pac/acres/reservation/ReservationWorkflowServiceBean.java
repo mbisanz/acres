@@ -28,8 +28,7 @@ import com.prodyna.pac.acres.user.User;
 @Stateless
 @Logged
 @Monitored
-public class ReservationWorkflowServiceBean implements
-		ReservationWorkflowService {
+public class ReservationWorkflowServiceBean implements ReservationWorkflowService {
 
 	@Inject
 	private Logger log;
@@ -60,17 +59,14 @@ public class ReservationWorkflowServiceBean implements
 
 	@Override
 	public Reservation createUserReservation(Reservation reservation) {
-		List<License> licenses = licenseService.findLicenses(user.getLogin(),
-				reservation.getAircraft().getType().getIataCode());
+		List<License> licenses = licenseService.findLicenses(user.getLogin(), reservation.getAircraft().getType()
+				.getIataCode());
 		if (!reservationWithinLicense(reservation, licenses)) {
 			throw new NoValidLicenseException("No valid license");
 		}
-		List<Reservation> existingReservations = reservationService
-				.findReservations(null, reservation.getAircraft()
-						.getRegistration(), Arrays
-						.asList(new ReservationState[] {
-								ReservationState.RESERVED,
-								ReservationState.LENT }));
+		List<Reservation> existingReservations = reservationService.findReservations(null, reservation.getAircraft()
+				.getRegistration(), Arrays.asList(new ReservationState[] { ReservationState.RESERVED,
+				ReservationState.LENT }));
 		for (Reservation existing : existingReservations) {
 			if (existing.overlaps(reservation)) {
 				throw new OverlappingReservationExistsException(reservation);
@@ -82,11 +78,35 @@ public class ReservationWorkflowServiceBean implements
 	}
 
 	@Override
+	public Reservation updateUserReservation(Reservation reservation) {
+		Reservation existing = loadReservation(reservation.getId());
+		if (!ReservationState.RESERVED.equals(existing.getState())) {
+			throw new WrongStateException();
+		}
+		List<License> licenses = licenseService.findLicenses(user.getLogin(), reservation.getAircraft().getType()
+				.getIataCode());
+		if (!reservationWithinLicense(reservation, licenses)) {
+			throw new NoValidLicenseException("No valid license");
+		}
+		List<Reservation> otherReservations = reservationService.findReservations(null, reservation.getAircraft()
+				.getRegistration(), Arrays.asList(new ReservationState[] { ReservationState.RESERVED,
+				ReservationState.LENT }));
+		for (Reservation other : otherReservations) {
+			if (existing.equals(other)) {
+				continue;
+			}
+			if (other.overlaps(reservation)) {
+				throw new OverlappingReservationExistsException(reservation);
+			}
+		}
+		reservation.setUser(user);
+		reservation.setState(ReservationState.RESERVED);
+		return reservationService.updateReservation(reservation);
+	}
+
+	@Override
 	public Reservation cancelReservation(long reservationId) {
 		Reservation reservation = loadReservation(reservationId);
-		if (!user.equals(reservation.getUser())) {
-			throw new WrongOwnerException();
-		}
 		if (!ReservationState.RESERVED.equals(reservation.getState())) {
 			throw new WrongStateException();
 		}
@@ -97,9 +117,6 @@ public class ReservationWorkflowServiceBean implements
 	@Override
 	public Reservation checkoutOrReturnAircraft(long reservationId) {
 		Reservation reservation = loadReservation(reservationId);
-		if (!user.equals(reservation.getUser())) {
-			throw new WrongOwnerException();
-		}
 		if (ReservationState.RESERVED.equals(reservation.getState())) {
 			reservation.setState(ReservationState.LENT);
 		} else if (ReservationState.LENT.equals(reservation.getState())) {
@@ -115,12 +132,10 @@ public class ReservationWorkflowServiceBean implements
 	}
 
 	private boolean dateWithinReservation(Reservation reservation, Date date) {
-		return reservation.getValidFrom().compareTo(date) <= 0
-				&& reservation.getValidTo().compareTo(date) >= 0;
+		return reservation.getValidFrom().compareTo(date) <= 0 && reservation.getValidTo().compareTo(date) >= 0;
 	}
 
-	private boolean reservationWithinLicense(Reservation reservation,
-			List<License> licenses) {
+	private boolean reservationWithinLicense(Reservation reservation, List<License> licenses) {
 		if (licenses == null) {
 			return false;
 		}
@@ -132,8 +147,7 @@ public class ReservationWorkflowServiceBean implements
 		return false;
 	}
 
-	private boolean reservationWithinLicense(Reservation reservation,
-			License license) {
+	private boolean reservationWithinLicense(Reservation reservation, License license) {
 		boolean licenseBeginsBefore = license.getValidFrom() == null
 				|| license.getValidFrom().compareTo(reservation.getValidFrom()) <= 0;
 		boolean licenseEndsAfter = license.getValidTo() == null
@@ -141,7 +155,11 @@ public class ReservationWorkflowServiceBean implements
 		return licenseBeginsBefore && licenseEndsAfter;
 	}
 
-	private Reservation loadReservation(long reservationId) {
-		return reservationService.readReservation(reservationId);
+	private Reservation loadReservation(long reservationId) throws WrongOwnerException {
+		Reservation existing = reservationService.readReservation(reservationId);
+		if (!user.equals(existing.getUser())) {
+			throw new WrongOwnerException();
+		}
+		return existing;
 	}
 }

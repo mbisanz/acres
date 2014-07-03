@@ -10,8 +10,7 @@ import com.prodyna.pac.acres.common.qualifier.Unsecured;
 
 @RequestScoped
 @Logged
-public class ReservationWorkflowRestServiceResource implements
-		ReservationWorkflowRestService {
+public class ReservationWorkflowRestServiceResource implements ReservationWorkflowRestService {
 
 	@Inject
 	@Unsecured
@@ -28,13 +27,17 @@ public class ReservationWorkflowRestServiceResource implements
 	}
 
 	@Override
+	public Reservation updateUserReservation(Reservation reservation) {
+		return reservationWorkflowService.updateUserReservation(reservation);
+	}
+
+	@Override
 	public Reservation cancelReservation(long reservationId) {
 		return reservationWorkflowService.cancelReservation(reservationId);
 	}
 
 	@Override
 	public Reservation checkoutOrReturnAircraft(long reservationId) {
-		return reservationWorkflowService
-				.checkoutOrReturnAircraft(reservationId);
+		return reservationWorkflowService.checkoutOrReturnAircraft(reservationId);
 	}
 }
