@@ -15,7 +15,7 @@ The project is build using Java 7 (Java SDK 1.7) or better, Maven 3.0 or better.
 
 For building the client (acres-web), node, npm and grunt are required. The last client build is included by maven, so it is possible to build the application without (re-)building the client.  
 
-The application is designed to be run on JBoss WildFly 8.
+The application is designed to be run on JBoss WildFly 8.x (tested with 8.1.0.Final).
 
 You need a Hibernate supported database for this application. Setup scripts and instructions for MySQL 5.1 are included. 
 

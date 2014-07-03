@@ -23,13 +23,13 @@
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.arquillian>1.1.2.Final-wildfly-1</version.arquillian>
+		<version.arquillian>1.1.5.Final</version.arquillian>
 		<version.arquillian.suite.extension>1.1.1</version.arquillian.suite.extension>
 		<version.jboss.javaee7>1.0.0.Final</version.jboss.javaee7>
-		<version.jboss.wildfly>8.0.0.Final</version.jboss.wildfly>
+		<version.jboss.wildfly>8.1.0.Final</version.jboss.wildfly>
 		<version.junit>4.11</version.junit>
-		<version.resteasy>3.0.6.Final</version.resteasy>
-		<version.slf4j>1.7.5</version.slf4j>
+		<version.resteasy>3.0.8.Final</version.resteasy>
+		<version.slf4j>1.7.7</version.slf4j>
 	</properties>
 	<build>
 		<plugins>
