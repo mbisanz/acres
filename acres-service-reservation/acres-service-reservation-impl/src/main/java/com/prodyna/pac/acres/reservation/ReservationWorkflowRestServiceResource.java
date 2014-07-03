@@ -32,12 +32,12 @@ public class ReservationWorkflowRestServiceResource implements ReservationWorkfl
 	}
 
 	@Override
-	public Reservation cancelReservation(long reservationId) {
-		return reservationWorkflowService.cancelReservation(reservationId);
+	public Reservation cancelUserReservation(long reservationId) {
+		return reservationWorkflowService.cancelUserReservation(reservationId);
 	}
 
 	@Override
-	public Reservation checkoutOrReturnAircraft(long reservationId) {
-		return reservationWorkflowService.checkoutOrReturnAircraft(reservationId);
+	public Reservation nextWorkflowStep(long reservationId) {
+		return reservationWorkflowService.nextWorkflowStep(reservationId);
 	}
 }

@@ -7,7 +7,7 @@ public class WrongOwnerException extends AcresException {
 	private static final long serialVersionUID = 1L;
 
 	public WrongOwnerException() {
-		super();
+		super("Wrong owner");
 	}
 
 	public WrongOwnerException(String message, Throwable cause) {

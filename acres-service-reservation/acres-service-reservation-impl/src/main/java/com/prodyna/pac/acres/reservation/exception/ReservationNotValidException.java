@@ -7,7 +7,7 @@ public class ReservationNotValidException extends AcresException {
 	private static final long serialVersionUID = 1L;
 
 	public ReservationNotValidException() {
-		super();
+		super("Reservation is not valid");
 	}
 
 	public ReservationNotValidException(String message, Throwable cause) {

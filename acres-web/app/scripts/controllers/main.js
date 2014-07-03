@@ -8,6 +8,10 @@ angular.module('acres')
     $scope.version = version;
     
     $scope.resetShowcase = function() {
-    	showcaseService.save();
+    	showcaseService.save(
+    		function(value, responseHeaders) {
+			}, function(httpResponse) {
+				alert("Failed to load showcase data!\n"+httpResponse.data);
+			});
     };
   });

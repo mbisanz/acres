@@ -7,7 +7,7 @@ public class NoValidLicenseException extends AcresException {
 	private static final long serialVersionUID = 1L;
 
 	public NoValidLicenseException() {
-		super();
+		super("No valid license");
 	}
 
 	public NoValidLicenseException(String message, Throwable cause) {

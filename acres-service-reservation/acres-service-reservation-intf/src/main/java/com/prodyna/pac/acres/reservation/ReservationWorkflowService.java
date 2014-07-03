@@ -2,15 +2,17 @@ package com.prodyna.pac.acres.reservation;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 public interface ReservationWorkflowService {
 
 	List<Reservation> readUserReservations();
 
-	Reservation createUserReservation(Reservation reservation);
+	Reservation createUserReservation(@Valid Reservation reservation);
 
-	Reservation updateUserReservation(Reservation reservation);
-	
-	Reservation cancelReservation(long reservationId);
+	Reservation updateUserReservation(@Valid Reservation reservation);
 
-	Reservation checkoutOrReturnAircraft(long reservationId);
+	Reservation cancelUserReservation(long reservationId);
+
+	Reservation nextWorkflowStep(long reservationId);
 }

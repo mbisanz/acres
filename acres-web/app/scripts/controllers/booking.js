@@ -2,14 +2,14 @@
 
 angular.module('acres').controller(
 		'BookingCtrl',
-		function($scope, reservationWorkflowService, aircraftService) {
+		function($scope, userService, aircraftService, reservationWorkflowService, reservationWorkflowStepService) {
 
 			$scope.loadReservationList = function() {
 				reservationWorkflowService.query(function(value,
 						responseHeaders) {
 					$scope.reservations = value;
-				}, function(httpHeaders) {
-					alert("Failed to load bookings list!");
+				}, function(httpResponse) {
+					alert("Failed to load bookings list!\n"+httpResponse.data);
 				});
 			};
 
@@ -18,19 +18,19 @@ angular.module('acres').controller(
 					resId : reservation.id
 				}, function(value, responseHeaders) {
 					$scope.loadReservationList();
-				}, function(httpHeaders) {
-					alert("Failed to cancel booking!");
+				}, function(httpResponse) {
+					alert("Failed to cancel booking!\n"+httpResponse.data);
 				});
 			};
 
-			$scope.updateReservation = function(reservation) {
-				reservationWorkflowService.update({
-					resId : reservation.id
-				}, function(value, responseHeaders) {
-					$scope.loadReservationList();
-				}, function(httpHeaders) {
-					alert("Failed to update booking!");
-				});
+			$scope.step = function(reservation) {
+				reservationWorkflowStepService.step(reservation.id).
+					success(function (value, status){
+						$scope.loadReservationList();
+					}).
+			        error(function(data, status) {
+			        	alert("Failed to update booking!\n"+data);
+			        });
 			};
 
 			$scope.loadReservationList();
@@ -56,22 +56,35 @@ angular.module('acres').controller(
 					$scope.reservation = reservation;
 				}
 				$scope.showEditReservation = true;
-			}
+			};
 
 			$scope.cancelEdit = function(reservation) {
 				$scope.reservation = {};
 				$scope.showEditReservation = false;
-			}
+			};
 
 			$scope.saveReservation = function() {
 				var reservation = $scope.reservation;
-				console.log($scope.reservation);
-				reservationWorkflowService.save(reservation, function(value, responseHeaders) {
-					$scope.loadReservationList();
-					$scope.reservation = {};
-					$scope.showEditReservation = false;
-				}, function(httpHeaders) {
-					alert("Failed to save reservation!");
-				});
+				console.log(reservation);
+				if (reservation.id) {
+					reservationWorkflowService.update("",reservation,function(value, responseHeaders){
+						$scope.loadReservationList();
+						$scope.reservation = {};
+						$scope.showEditReservation = false;
+					}, function(httpResponse) {
+						console.log(httpResponse);
+						alert("Failed to update reservation!\n"+httpResponse.data);
+					});
+				} else {
+					reservation.user = {};
+					reservationWorkflowService.save("",reservation,function(value, responseHeaders){
+						$scope.loadReservationList();
+						$scope.reservation = {};
+						$scope.showEditReservation = false;
+					}, function(httpResponse) {
+						console.log(httpResponse);
+						alert("Failed to create reservation!\n"+httpResponse.data);
+					});
+				}
 			};
 		});

@@ -26,9 +26,9 @@
 					<button class="btn btn-xs btn-primary"
 						ng-click="cancelReservation(r);" ng-show="r.state == 'RESERVED'">Cancel</button>
 					<button class="btn btn-xs btn-primary"
-						ng-click="updateReservation(r);" ng-show="r.state == 'RESERVED'">Lend</button>
+						ng-click="step(r);" ng-show="r.state == 'RESERVED'">Lend</button>
 					<button class="btn btn-xs btn-primary"
-						ng-click="updateReservation(r);" ng-show="r.state == 'LENT'">Return</button>
+						ng-click="step(r);" ng-show="r.state == 'LENT'">Return</button>
 				</td>
 			</tr>
 		</tbody>

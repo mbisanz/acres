@@ -3,16 +3,23 @@
 var baseUrl = '/acres-rest/rest';
 
 angular.module('acres')
+	.factory('userService',
+		[ '$resource', function($resource) {
+			return $resource(baseUrl + '/user/:userId', {userId:'@id'}, {
+				update : {method:'PUT'}
+			});
+		} ]
+	)
 	.factory('aircraftService',
 		[ '$resource', function($resource) {
-			return $resource(baseUrl + '/ac/:acId', {acId:'@acId'}, {
+			return $resource(baseUrl + '/ac/:acId', {acId:'@id'}, {
 				update : {method:'PUT'}
 			});
 		} ]
 	)
 	.factory('reservationService',
 		[ '$resource', function($resource) {
-			return $resource(baseUrl + '/res/:resId', {resId:'@resId'}, {
+			return $resource(baseUrl + '/res/:resId', {resId:'@id'}, {
 				update : {method:'PUT'},
 				query : {method:'GET', url: baseUrl + '/res/search', isArray: true}
 			});
@@ -20,9 +27,18 @@ angular.module('acres')
 	)
 	.factory('reservationWorkflowService',
 		[ '$resource', function($resource) {
-			return $resource(baseUrl + '/reswf/:resId', {resId:'@resId'}, {
+			return $resource(baseUrl + '/reswf/:resId', {resId:'@id'}, {
 				update : {method:'PUT'}
 			});
+		} ]
+	)
+	.factory('reservationWorkflowStepService',
+		[ '$http', function($http) {
+			return {
+				step: function(resId) {
+					return $http.put(baseUrl + "/reswf/step/" + resId);
+				}
+			};
 		} ]
 	)
 	.factory('showcaseService',

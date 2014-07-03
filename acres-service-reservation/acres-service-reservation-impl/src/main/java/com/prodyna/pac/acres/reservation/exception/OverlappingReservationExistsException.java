@@ -10,7 +10,7 @@ public class OverlappingReservationExistsException extends AcresException {
 	private final Reservation reservation;
 
 	public OverlappingReservationExistsException(Reservation reservation) {
-		super();
+		super("Overlapping reservation exists");
 		this.reservation = reservation;
 	}
 

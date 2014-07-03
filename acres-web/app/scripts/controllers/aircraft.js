@@ -9,8 +9,8 @@ angular.module('acres')
 					$scope.aircrafts = value;
 					$scope.reservations = null;
 					$scope.showReservations = false;
-				}, function(httpHeaders) {
-					alert("Failed to load aircraft list!");
+				}, function(httpResponse) {
+					alert("Failed to load aircraft list!\n"+httpResponse.data);
 				});
 			}
 			;
@@ -21,8 +21,8 @@ angular.module('acres')
 				}, function(value, responseHeaders) {
 					$scope.reservations = value;
 					$scope.showReservations = true;
-				}, function(httpHeaders) {
-					alert("Failed to load bookings list!");
+				}, function(httpResponse) {
+					alert("Failed to load bookings list!\n"+httpResponse.data);
 				});
 			};
 			

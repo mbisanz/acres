@@ -7,7 +7,7 @@ public class WrongStateException extends AcresException {
 	private static final long serialVersionUID = 1L;
 
 	public WrongStateException() {
-		super();
+		super("Wrong state");
 	}
 
 	public WrongStateException(String message, Throwable cause) {

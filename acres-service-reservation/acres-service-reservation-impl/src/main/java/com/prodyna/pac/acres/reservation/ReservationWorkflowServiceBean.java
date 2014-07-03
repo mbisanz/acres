@@ -105,7 +105,7 @@ public class ReservationWorkflowServiceBean implements ReservationWorkflowServic
 	}
 
 	@Override
-	public Reservation cancelReservation(long reservationId) {
+	public Reservation cancelUserReservation(long reservationId) {
 		Reservation reservation = loadReservation(reservationId);
 		if (!ReservationState.RESERVED.equals(reservation.getState())) {
 			throw new WrongStateException();
@@ -115,7 +115,7 @@ public class ReservationWorkflowServiceBean implements ReservationWorkflowServic
 	}
 
 	@Override
-	public Reservation checkoutOrReturnAircraft(long reservationId) {
+	public Reservation nextWorkflowStep(long reservationId) {
 		Reservation reservation = loadReservation(reservationId);
 		if (ReservationState.RESERVED.equals(reservation.getState())) {
 			reservation.setState(ReservationState.LENT);
