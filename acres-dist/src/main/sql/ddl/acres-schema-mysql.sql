@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `acres_aircraft_aircraft`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acres_aircraft_aircraft` (
   `id` bigint(20) NOT NULL,
-  `registration` varchar(255) DEFAULT NULL,
-  `type_id` bigint(20) DEFAULT NULL,
+  `registration` varchar(255) NOT NULL,
+  `type_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_cy92t6vgbd8ituj1snw5vug6o` (`registration`),
   KEY `FK_hfogydu3wugmxq89vn629u5do` (`type_id`)
@@ -41,11 +41,9 @@ DROP TABLE IF EXISTS `acres_aircraft_aircrafttype`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acres_aircraft_aircrafttype` (
   `id` bigint(20) NOT NULL,
-  `iataCode` varchar(255) DEFAULT NULL,
-  `icaoCode` varchar(255) DEFAULT NULL,
+  `iataCode` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_n7ircmhpn1mcg7exf53745m13` (`icaoCode`),
   UNIQUE KEY `UK_4rhx3hsaysi20b7tyurska008` (`iataCode`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -61,11 +59,31 @@ CREATE TABLE `acres_license_license` (
   `id` bigint(20) NOT NULL,
   `validFrom` datetime DEFAULT NULL,
   `validTo` datetime DEFAULT NULL,
-  `aircraftType_id` bigint(20) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
+  `aircraftType_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_hggc0vo031rq0h8dslejfilxl` (`aircraftType_id`),
   KEY `FK_hjsg2lf5i4axnyrnitab03gxb` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `acres_reservation_reservation`
+--
+
+DROP TABLE IF EXISTS `acres_reservation_reservation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `acres_reservation_reservation` (
+  `id` bigint(20) NOT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `validFrom` datetime NOT NULL,
+  `validTo` datetime NOT NULL,
+  `aircraft_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_kqfspj97aguxpp6itamh956y2` (`aircraft_id`),
+  KEY `FK_4183fiw4fqcmkgovmaisxxc5g` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -79,11 +97,10 @@ DROP TABLE IF EXISTS `acres_user_user`;
 CREATE TABLE `acres_user_user` (
   `id` bigint(20) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `login` varchar(255) DEFAULT NULL,
+  `login` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `passwordHash` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_ib1j2b0f7o4sav6rdixly155g` (`login`),
   UNIQUE KEY `UK_g38tsaho5nja1dxcc7237mh3m` (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -123,4 +140,4 @@ CREATE TABLE `hibernate_sequence` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-16 15:30:40
+-- Dump completed on 2014-07-08 15:13:00

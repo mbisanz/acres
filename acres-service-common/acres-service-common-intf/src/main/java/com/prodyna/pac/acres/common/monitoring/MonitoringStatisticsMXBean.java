@@ -1,18 +1,12 @@
 package com.prodyna.pac.acres.common.monitoring;
 
-import java.util.List;
+import java.util.Map;
 
 public interface MonitoringStatisticsMXBean {
-	
-	List<String> showExecutedMethodNames();
 
 	void addMethodExecution(String methodName, Long duration);
 
-	List<Long> getMethodDurations(String methodName);
-
-	Long getAverageMethodDuration(String methodName);
-
-	int getMethodExecutionCount(String methodName);
+	Map<String, MethodStatistics> getMethodStatistics();
 
 	void resetMethodStatistics(String methodName);
 
