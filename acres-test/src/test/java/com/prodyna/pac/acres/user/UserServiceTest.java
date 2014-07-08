@@ -2,9 +2,8 @@ package com.prodyna.pac.acres.user;
 
 import java.util.List;
 
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
-import javax.validation.ValidationException;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
@@ -12,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.pac.acres.AbstractAcresTest;
+import com.prodyna.pac.acres.common.exception.AcresValidationException;
+import com.prodyna.pac.acres.common.exception.NotFoundException;
 import com.prodyna.pac.acres.common.qualifier.Unsecured;
 import com.prodyna.pac.acres.user.password.SecureHashService;
 
@@ -25,13 +26,14 @@ public class UserServiceTest extends AbstractAcresTest {
 	@Inject
 	private SecureHashService secureHashService;
 
-	@Test(expected = ValidationException.class)
+	@Test(expected = EJBTransactionRolledbackException.class)
 	public void testCreateUserNoLogin() throws Exception {
 		User user = new User();
+		user.setPassword("test");
 		userService.createUser(user);
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test(expected = AcresValidationException.class)
 	public void testCreateUserNoPassword() throws Exception {
 		User user = new User();
 		user.setLogin("test");
@@ -49,8 +51,7 @@ public class UserServiceTest extends AbstractAcresTest {
 		userService.createUser(user);
 		Assert.assertNotNull(user.getId());
 		Assert.assertNull(user.getPassword());
-		Assert.assertEquals(secureHashService.calculateHash("test"),
-				user.getPasswordHash());
+		Assert.assertEquals(secureHashService.calculateHash("test"), user.getPasswordHash());
 
 		List<User> result = userService.readAllUsers();
 		Assert.assertEquals(5, result.size());
@@ -91,7 +92,7 @@ public class UserServiceTest extends AbstractAcresTest {
 		Assert.assertNotEquals(passwordHashBefore, result.getPasswordHash());
 	}
 
-	@Test(expected = NoResultException.class)
+	@Test(expected = NotFoundException.class)
 	public void testUpdateUserIdChange() throws Exception {
 		List<User> before = userService.readAllUsers();
 		Assert.assertEquals(4, before.size());

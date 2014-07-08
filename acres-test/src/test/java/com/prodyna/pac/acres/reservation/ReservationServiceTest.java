@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import com.prodyna.pac.acres.AbstractAcresTest;
 import com.prodyna.pac.acres.aircraft.Aircraft;
 import com.prodyna.pac.acres.aircraft.AircraftService;
+import com.prodyna.pac.acres.common.exception.AcresValidationException;
 import com.prodyna.pac.acres.common.qualifier.Unsecured;
 import com.prodyna.pac.acres.user.User;
 import com.prodyna.pac.acres.user.UserService;
@@ -35,8 +36,14 @@ public class ReservationServiceTest extends AbstractAcresTest {
 
 	@Test(expected = EJBTransactionRolledbackException.class)
 	public void testCreateReservationNoUser() throws Exception {
-		Reservation user = new Reservation();
-		reservationService.createReservation(user);
+		Aircraft ac1 = aircraftService.findAircraft("VH-FNA");
+		Assert.assertNotNull(ac1);
+
+		Reservation reservation = new Reservation();
+		reservation.setAircraft(ac1);
+		reservation.setValidFrom(showcaseService.getDateTime("2014-07-04 11:00"));
+		reservation.setValidTo(showcaseService.getDateTime("2014-07-04 11:00"));
+		reservationService.createReservation(reservation);
 	}
 
 	@Test(expected = EJBTransactionRolledbackException.class)
@@ -46,9 +53,20 @@ public class ReservationServiceTest extends AbstractAcresTest {
 
 		Reservation reservation = new Reservation();
 		reservation.setUser(pilot1);
-		reservation.setValidFrom(showcaseService
-				.getDateTime("2014-07-04 11:00"));
+		reservation.setValidFrom(showcaseService.getDateTime("2014-07-04 11:00"));
 		reservation.setValidTo(showcaseService.getDateTime("2014-07-04 11:00"));
+		reservationService.createReservation(reservation);
+	}
+
+	@Test(expected = AcresValidationException.class)
+	public void testCreateReservationWrongDates() throws Exception {
+		User pilot1 = userService.findUser("pilot1");
+		Assert.assertNotNull(pilot1);
+
+		Reservation reservation = new Reservation();
+		reservation.setUser(pilot1);
+		reservation.setValidFrom(showcaseService.getDateTime("2014-07-04 11:00"));
+		reservation.setValidTo(showcaseService.getDateTime("2014-07-04 10:00"));
 		reservationService.createReservation(reservation);
 	}
 
@@ -60,14 +78,13 @@ public class ReservationServiceTest extends AbstractAcresTest {
 		User pilot1 = userService.findUser("pilot1");
 		Assert.assertNotNull(pilot1);
 
-		Aircraft cna = aircraftService.findAircraft("VH-FNA");
-		Assert.assertNotNull(cna);
+		Aircraft ac1 = aircraftService.findAircraft("VH-FNA");
+		Assert.assertNotNull(ac1);
 
 		Reservation reservation = new Reservation();
 		reservation.setUser(pilot1);
-		reservation.setAircraft(cna);
-		reservation.setValidFrom(showcaseService
-				.getDateTime("2014-07-04 11:00"));
+		reservation.setAircraft(ac1);
+		reservation.setValidFrom(showcaseService.getDateTime("2014-07-04 11:00"));
 		reservation.setValidTo(showcaseService.getDateTime("2014-07-04 11:00"));
 		reservation.setState(ReservationState.RESERVED);
 		reservationService.createReservation(reservation);
@@ -93,13 +110,12 @@ public class ReservationServiceTest extends AbstractAcresTest {
 		result = reservationService.findReservations(null, "VH-FNA", null);
 		Assert.assertEquals(1, result.size());
 
-		result = reservationService.findReservations(null, "VH-FNA", Arrays
-				.asList(new ReservationState[] { ReservationState.CANCELLED }));
+		result = reservationService.findReservations(null, "VH-FNA",
+				Arrays.asList(new ReservationState[] { ReservationState.CANCELLED }));
 		Assert.assertEquals(0, result.size());
 
-		result = reservationService.findReservations(null, "VH-FNA", Arrays
-				.asList(new ReservationState[] { ReservationState.CANCELLED,
-						ReservationState.RESERVED }));
+		result = reservationService.findReservations(null, "VH-FNA",
+				Arrays.asList(new ReservationState[] { ReservationState.CANCELLED, ReservationState.RESERVED }));
 		Assert.assertEquals(1, result.size());
 	}
 }

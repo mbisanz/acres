@@ -7,7 +7,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -17,6 +16,8 @@ import org.slf4j.Logger;
 
 import com.prodyna.pac.acres.aircraft.AircraftType;
 import com.prodyna.pac.acres.aircraft.AircraftTypeService;
+import com.prodyna.pac.acres.common.exception.AcresValidationException;
+import com.prodyna.pac.acres.common.exception.NotFoundException;
 import com.prodyna.pac.acres.common.qualifier.Logged;
 import com.prodyna.pac.acres.common.qualifier.Monitored;
 import com.prodyna.pac.acres.common.qualifier.Unsecured;
@@ -50,22 +51,23 @@ public class LicenseServiceBean implements LicenseService {
 
 	@Override
 	public List<License> readAllLicenses() {
-		return em.createQuery("select e from License e", License.class)
-				.getResultList();
+		return em.createQuery("select e from License e", License.class).getResultList();
 	}
 
 	@Override
-	public License createLicense(License License) {
-		em.persist(License);
-		return License;
+	public License createLicense(License license) {
+		validate(license);
+		em.persist(license);
+		return license;
 	}
 
 	@Override
 	public License updateLicense(License license) {
 		License existing = em.find(License.class, license.getId());
 		if (existing == null) {
-			throw new NoResultException("License does not exist");
+			throw new NotFoundException("License does not exist");
 		}
+		validate(license);
 		return em.merge(license);
 	}
 
@@ -73,7 +75,7 @@ public class LicenseServiceBean implements LicenseService {
 	public void deleteLicense(long id) {
 		License existing = em.find(License.class, id);
 		if (existing == null) {
-			throw new NoResultException("License does not exist");
+			throw new NotFoundException("License does not exist");
 		}
 		em.remove(existing);
 	}
@@ -107,5 +109,17 @@ public class LicenseServiceBean implements LicenseService {
 		cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 		List<License> result = em.createQuery(cq).getResultList();
 		return result;
+	}
+
+	private void validate(License license) {
+		if (license.getValidFrom() == null) {
+			return;
+		}
+		if (license.getValidTo() == null) {
+			return;
+		}
+		if (license.getValidFrom().compareTo(license.getValidTo()) > 0) {
+			throw new AcresValidationException("Start date must be before end date");
+		}
 	}
 }

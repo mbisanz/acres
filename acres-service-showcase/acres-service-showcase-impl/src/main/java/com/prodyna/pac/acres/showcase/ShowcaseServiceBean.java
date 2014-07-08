@@ -205,16 +205,16 @@ public class ShowcaseServiceBean implements ShowcaseService {
 		Reservation p1r1 = new Reservation();
 		p1r1.setUser(pilot1);
 		p1r1.setAircraft(vhfna);
-		p1r1.setValidFrom(getDateTime("2014-07-04 07:15"));
-		p1r1.setValidTo(getDateTime("2014-07-04 09:45"));
+		p1r1.setValidFrom(getDateTime("2014-08-01 07:15"));
+		p1r1.setValidTo(getDateTime("2014-08-01 09:45"));
 		p1r1.setState(ReservationState.RESERVED);
 		reservationService.createReservation(p1r1);
 
 		Reservation p2r1 = new Reservation();
 		p2r1.setUser(pilot2);
 		p2r1.setAircraft(n668us);
-		p2r1.setValidFrom(getDateTime("2014-07-04 08:00"));
-		p2r1.setValidTo(getDateTime("2014-07-04 16:00"));
+		p2r1.setValidFrom(getDateTime("2014-08-01 08:00"));
+		p2r1.setValidTo(getDateTime("2014-08-01 16:00"));
 		p2r1.setState(ReservationState.RESERVED);
 		reservationService.createReservation(p2r1);
 	}

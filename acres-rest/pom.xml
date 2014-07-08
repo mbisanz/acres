@@ -16,6 +16,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<attachClasses>true</attachClasses>
 				</configuration>
 			</plugin>
 		</plugins>

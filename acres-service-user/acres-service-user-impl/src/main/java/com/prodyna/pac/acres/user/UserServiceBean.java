@@ -9,10 +9,11 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.validation.ValidationException;
 
 import org.slf4j.Logger;
 
+import com.prodyna.pac.acres.common.exception.AcresValidationException;
+import com.prodyna.pac.acres.common.exception.NotFoundException;
 import com.prodyna.pac.acres.common.qualifier.Logged;
 import com.prodyna.pac.acres.common.qualifier.Monitored;
 import com.prodyna.pac.acres.common.qualifier.Unsecured;
@@ -40,17 +41,15 @@ public class UserServiceBean implements UserService {
 
 	@Override
 	public List<User> readAllUsers() {
-		return em.createQuery("select u from User u", User.class)
-				.getResultList();
+		return em.createQuery("select u from User u", User.class).getResultList();
 	}
 
 	@Override
 	public User createUser(User user) {
 		if (user.getPassword() == null || user.getPassword().length() == 0) {
-			throw new ValidationException("Password is required");
+			throw new AcresValidationException("Password is required");
 		}
-		String passwordHash = secureHashService.calculateHash(user
-				.getPassword());
+		String passwordHash = secureHashService.calculateHash(user.getPassword());
 		user.setPasswordHash(passwordHash);
 		user.setPassword(null);
 		em.persist(user);
@@ -61,11 +60,10 @@ public class UserServiceBean implements UserService {
 	public User updateUser(User user) {
 		User existing = em.find(User.class, user.getId());
 		if (existing == null) {
-			throw new NoResultException("User does not exist");
+			throw new NotFoundException("User does not exist");
 		}
 		if (user.getPassword() != null && user.getPassword().length() > 0) {
-			String passwordHash = secureHashService.calculateHash(user
-					.getPassword());
+			String passwordHash = secureHashService.calculateHash(user.getPassword());
 			user.setPasswordHash(passwordHash);
 		} else {
 			user.setPasswordHash(existing.getPasswordHash());
@@ -78,7 +76,7 @@ public class UserServiceBean implements UserService {
 	public void deleteUser(long id) {
 		User existing = em.find(User.class, id);
 		if (existing == null) {
-			throw new NoResultException("User does not exist");
+			throw new NotFoundException("User does not exist");
 		}
 		em.remove(existing);
 	}

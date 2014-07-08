@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -22,9 +23,11 @@ public class Aircraft implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@NotNull
 	private String registration;
 
 	@ManyToOne
+	@NotNull
 	private AircraftType type;
 
 	public Long getId() {

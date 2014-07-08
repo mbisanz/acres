@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
 
+import com.prodyna.pac.acres.common.exception.NotFoundException;
 import com.prodyna.pac.acres.common.qualifier.Logged;
 import com.prodyna.pac.acres.common.qualifier.Monitored;
 import com.prodyna.pac.acres.common.qualifier.Unsecured;
@@ -49,7 +50,7 @@ public class AircraftServiceBean implements AircraftService {
 	public Aircraft updateAircraft(Aircraft aircraft) {
 		Aircraft existing = em.find(Aircraft.class, aircraft.getId());
 		if (existing == null) {
-			throw new NoResultException("Aircraft does not exist");
+			throw new NotFoundException("Aircraft does not exist");
 		}
 		return em.merge(aircraft);
 	}
@@ -58,7 +59,7 @@ public class AircraftServiceBean implements AircraftService {
 	public void deleteAircraft(long id) {
 		Aircraft existing = em.find(Aircraft.class, id);
 		if (existing == null) {
-			throw new NoResultException("Aircraft does not exist");
+			throw new NotFoundException("Aircraft does not exist");
 		}
 		em.remove(existing);
 	}
@@ -72,7 +73,11 @@ public class AircraftServiceBean implements AircraftService {
 		if (registration != null) {
 			query.where(cb.equal(room.get("registration"), registration));
 		}
-		Aircraft result = em.createQuery(criteria).getSingleResult();
-		return result;
+		try {
+			Aircraft result = em.createQuery(criteria).getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }

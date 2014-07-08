@@ -19,6 +19,29 @@ The application is designed to be run on JBoss WildFly 8.x (tested with 8.1.0.Fi
 
 You need a Hibernate supported database for this application. Setup scripts and instructions for MySQL 5.1 are included. 
 
+Build the client (optional)
+---------------------------
+
+The web client is located in project acres-web. The sources (html, js, css) are located in acres-web/app.
+
+For development purpose, the sources in acres-web/app can be used directly by maven by enabling the "dev" profile.
+
+        mvn -P dev clean package
+
+The client uses bower and grunt as dependency management and build tools. In order to build the client, you must install bower and grunt, e.g. via npm:
+
+        npm install -g grunt-cli bower
+
+Then, download the project dependencies in acres-web:
+
+        bower install
+
+Then, build the client (copies the sources from acres-web/app to acres-web/dist and does minification/merging etc:
+
+        grunt build --force
+
+This should be done whenever changing the client before pushing the changes to the upstream repository.
+
 Build the application
 ---------------------
 
@@ -103,6 +126,6 @@ Browse the client
 Open a browser and go to
         http://localhost:8080/acres-web
 
-Press the "Reset showcase" button in order to populate the database with the showcase users and some other data.
+Press the "Reset showcase" button in order to populate the database with the showcase users and some other data. Test users are admin/admin, pilot1/pilot1, pilot2/pilot2.
 
 Enjoy!

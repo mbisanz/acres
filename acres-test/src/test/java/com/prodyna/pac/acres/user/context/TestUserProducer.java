@@ -15,12 +15,22 @@ import com.prodyna.pac.acres.user.UserService;
 public class TestUserProducer {
 
 	@Inject
+	private CurrentUserProducerBean currentUserProducer;
+
+	@Inject
 	@Unsecured
 	private UserService service;
+
+	@Inject
+	private LoginConfiguration testUser;
 
 	@Produces
 	@Current
 	public User getTestUser() {
-		return service.findUser("pilot1");
+		String login = testUser.getLogin();
+		if (login != null) {
+			return service.findUser(login);
+		}
+		return currentUserProducer.getCurrentUser();
 	}
 }

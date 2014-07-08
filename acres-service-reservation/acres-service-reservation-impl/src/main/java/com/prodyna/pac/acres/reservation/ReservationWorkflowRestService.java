@@ -3,7 +3,6 @@ package com.prodyna.pac.acres.reservation;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
-import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,13 +26,13 @@ public interface ReservationWorkflowRestService extends ReservationWorkflowServi
 	@POST
 	@RolesAllowed({ "user", "admin" })
 	@Override
-	Reservation createUserReservation(@Valid Reservation reservation);
+	Reservation createUserReservation(Reservation reservation);
 
 	@PUT
 	@Path("{id:[0-9][0-9]*}")
 	@RolesAllowed({ "user", "admin" })
 	@Override
-	Reservation updateUserReservation(@Valid Reservation reservation);
+	Reservation updateUserReservation(Reservation reservation);
 
 	@DELETE
 	@Path("{id:[0-9][0-9]*}")

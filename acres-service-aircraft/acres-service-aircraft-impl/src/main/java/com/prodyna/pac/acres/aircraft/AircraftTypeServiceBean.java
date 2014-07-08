@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
 
+import com.prodyna.pac.acres.common.exception.NotFoundException;
 import com.prodyna.pac.acres.common.qualifier.Logged;
 import com.prodyna.pac.acres.common.qualifier.Monitored;
 import com.prodyna.pac.acres.common.qualifier.Unsecured;
@@ -50,7 +51,7 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 		AircraftType existing = em.find(AircraftType.class,
 				aircraftType.getId());
 		if (existing == null) {
-			throw new NoResultException("AircraftType does not exist");
+			throw new NotFoundException("AircraftType does not exist");
 		}
 		return em.merge(aircraftType);
 	}
@@ -59,7 +60,7 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 	public void deleteAircraftType(long id) {
 		AircraftType existing = em.find(AircraftType.class, id);
 		if (existing == null) {
-			throw new NoResultException("AircraftType does not exist");
+			throw new NotFoundException("AircraftType does not exist");
 		}
 		em.remove(existing);
 	}
@@ -72,7 +73,11 @@ public class AircraftTypeServiceBean implements AircraftTypeService {
 		if (iataCode != null) {
 			cq.where(cb.equal(aircraftType.get("iataCode"), iataCode));
 		}
-		AircraftType result = em.createQuery(cq).getSingleResult();
-		return result;
+		try {
+			AircraftType result = em.createQuery(cq).getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }

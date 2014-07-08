@@ -19,7 +19,7 @@
 						<jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
 						<module.path>${project.build.directory}/wildfly-${version.jboss.wildfly}/modules</module.path>
 					</systemPropertyVariables>
-					<redirectTestOutputToFile>false</redirectTestOutputToFile>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -99,6 +99,11 @@
 			<artifactId>resteasy-client</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<!-- services: -->
 		<dependency>
 			<groupId>com.prodyna.pac.acres</groupId>
@@ -135,6 +140,13 @@
 			<artifactId>acres-service-showcase-impl</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>ejb</type>
+		</dependency>
+		<!-- REST layer -->
+		<dependency>
+			<groupId>com.prodyna.pac.acres</groupId>
+			<artifactId>acres-rest</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<classifier>classes</classifier>
 		</dependency>
 	</dependencies>
 </project>

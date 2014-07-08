@@ -22,7 +22,7 @@
 
 	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>AcresRealm</realm-name>
+		<realm-name>ApplicationRealm</realm-name>
 	</login-config>
 
 	<security-role>
