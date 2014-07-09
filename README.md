@@ -1,7 +1,7 @@
 AirCraft REservation System - Showcase for PAC
 ==============================================
 
-Welcome to ACRES.
+Welcome to ACRES. This document describes how to setup a new environment. For an architectural overview, service architecture and coding guidelines see presentation (arch-final.pptx/arch-final.pdf).
 
 Continuous Integration Server
 -----------------------------
